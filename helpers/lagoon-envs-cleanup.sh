@@ -20,6 +20,7 @@ GROUP=""
 DRYRUN="false"
 PROJECT="all"
 MONTHS=0
+DEBUG="false"
 
 # LAGOON_ENDPOINT: Lagoon API endpoint
 # GITHUB_ENDPOINT: GitHub API endpoint
@@ -28,7 +29,7 @@ MONTHS=0
 # GITHUB_API_TOKEN: GitHub API Authentication token
 # GITLAB_API_TOKEN: Gitlab API Authentication token
 
-LAGOON_ENDPOINT="https://api-lagoon-master.lagoon.ch.amazee.io/graphql"
+LAGOON_ENDPOINT="https://api.amazeeio.cloud/graphql"
 LAGOON_BEARER_TOKEN="Authorization: bearer $LAGOON_API_TOKEN"
 
 GITHUB_ENDPOINT="https://api.github.com"
@@ -51,7 +52,6 @@ QL_ENV_QUERY="query envbyname { environmentByName (name: NAME, project: ID) { up
 QL_ENV_DELETE_QUERY="mutation delenv { deleteEnvironment(input: {name: ENV, project: PROJECT})}"
 
 # Set `date` command to gdate or date according to Mac/Linux
-
 gnudate() {
 	if hash gdate 2> /dev/null; then
 		gdate +%Y%m%d -d "$@" 
@@ -62,8 +62,6 @@ gnudate() {
 
 export -f gnudate
 
-# CLEANDATE: environments older will be remove if related to a closed PR
-CLEAN_DATE=$(gnudate "-$MONTHS months")
 
 # Function to retrieve group's projects
 lagoon_allproject_query() {
@@ -137,10 +135,10 @@ lagoon_environment_clean() {
 
 	# Check for dry-run option
 	if [ "$DRYRUN" = "true" ]; then
-		echo "Dry-run delete of the $1 env of $2 project"
+		echo -e "Dry-run delete of the $1 env of $2 project"
 		echo $ENV_DELETE_QUERY
 	else
-		echo "Deleting the $1 env of $2 project"
+		echo -e "Deleting the $1 env of $2 project"
 		echo $ENV_DELETE_QUERY
 		ENV_DELETE=$(curl -s -k -X POST -H 'Content-Type: application/json' -H "$LAGOON_BEARER_TOKEN" $LAGOON_ENDPOINT -d "{\"query\": \"$ENV_DELETE_QUERY\"}")
 	fi
@@ -148,12 +146,19 @@ lagoon_environment_clean() {
 
 # Function to query GitHub PR's status
 github_pr_query_delete() {
+
+	# Retrieve the PR
+	GITHUB_PR=$(curl -s -k -H "$GITHUB_BEARER_TOKEN" $GITHUB_ENDPOINT/repos/$1/$2/pulls/$3)
 	
 	# Retrieve the status of a PR
-	GITHUB_PR_STATUS=$(curl -s -k -H "$GITHUB_BEARER_TOKEN" $GITHUB_ENDPOINT/repos/$1/$2/pulls/$3|jq -r .state)
+	GITHUB_PR_STATUS=$(echo $GITHUB_PR|jq -r .state)
+	if [ "$GITHUB_PR_STATUS" = "open" ]; then
+		echo -e "Environment ${env} is not deleted because PR's status (open)"
+		return 1
+	fi
 
 	# Retrieve the lastupdate time of a PR
-	GITHUB_PR_UPDATE=$(curl -s -k -H "$GITHUB_BEARER_TOKEN" $GITHUB_ENDPOINT/repos/$1/$2/pulls/$3|jq -r .updated_at| xargs -I {} bash -c "gnudate {}")
+	GITHUB_PR_UPDATE=$(echo $GITHUB_PR|jq -r .updated_at| xargs -I {} bash -c "gnudate {}")
 	echo "PR $3 is $GITHUB_PR_STATUS and updated on $GITHUB_PR_UPDATE"
 
 	# Invoke clean function *only* if the PR is closed and last update date is before N months.
@@ -161,11 +166,7 @@ github_pr_query_delete() {
 		echo "Delete environment ${env} true"
 		lagoon_environment_clean $env $i true
 	else
-		if [ "$GITHUB_PR_STATUS" = "open" ]; then
-			echo "Environment ${env} is not deleted because status"
-		else
-			echo "Environment ${env} is not deleted because date"
-		fi
+		echo -e "Environment ${env} is not deleted because date"
 	fi
 }
 
@@ -191,7 +192,8 @@ gitlab_pr_query_delete() {
 		lagoon_environment_clean $env $i true
 	else
 		if [ "$GITLAB_PR_STATUS" = "open" ]; then
-			echo "Environment ${env} is not deleted because status"
+			echo -e "Environment ${env} is not deleted because PR's status (open)"
+			return 1
 		else
 			echo "Environment ${env} is not deleted because date"
 		fi
@@ -200,7 +202,8 @@ gitlab_pr_query_delete() {
 
 
 usage() {
-	echo -e "Usage is: $0 [-g group] [-m number_of_months] [-p all|project1,project2,...,projectN] [-d] \nes: $0 -c amazeeio -m 4 -d true\n"
+	echo -e "Usage is: LAGOON_API_TOKEN="xxxx" GITHUB_API_TOKEN="xxxx" GITLAB_API_TOKEN="xxxx" $0 [-g group ] [-p all|project1,project2,...projectn] [-m number_of_months] [-d] \n
+	es: $0 -g amazeeio -m 4 -d true\n"
 	echo "Script options are:
 	-g GROUP (MANDATORY Lagoon group to query)
  	-m MONTHS (OPTIONAL number of months since starting the cleanup. Default is 0)
@@ -248,6 +251,10 @@ main () {
 		exit 1
 	fi
 
+	# CLEANDATE: environments older will be remove if related to a closed PR
+	CLEAN_DATE=$(gnudate "-$MONTHS months")
+	echo $CLEAN_DATE
+
 	# Script body
 	if [ "$PROJECT" = "all" ]; then
 		lagoon_allproject_query $GROUP
@@ -262,10 +269,10 @@ main () {
 		do
 			id=${LAGOON_ENVS[$i,id]}
 			if [ "$GIT_SERVER_TYPE" = "github" ]; then
-				echo "Git is github"
+				echo -e "\nGit is github"
 				github_pr_query_delete $GIT_OWNER $GIT_PROJECT ${env##pr-}
 			elif [ "$GIT_SERVER_TYPE" = "gitlab" ]; then
-				echo "Git is gitlab"
+				echo -e "\nGit is gitlab"
 				gitlab_pr_query_delete $GIT_OWNER $GIT_PROJECT ${env##pr-}
 			else
 				echo "Not supported git"
