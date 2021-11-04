@@ -10,8 +10,6 @@ Check to be sure that all routes have been set up in your `.lagoon.yml`. Be awar
 
 If you use Certificate Authority \(CA\) signed certificates, you can set `tls-acme` to `false` , but leave the `insecure` flag set to `Allow` or `Redirect`. In the case of CA certificates, let your Lagoon administrator know the routes and the SSL certificate that needs to be put in place.
 
-{% tabs %}
-{% tab title=".lagoon.yml" %}
 ```yaml
 environments:
   main:
@@ -24,13 +22,9 @@ environments:
             tls-acme: 'false'
             insecure: Allow
 ```
-{% endtab %}
-{% endtabs %}
 
 As soon as the DNS entries point towards your Lagoon installation, you can switch the flags: `tls-acme` to `true` and `insecure` to `Redirect`
 
-{% tabs %}
-{% tab title=".lagoon.yml" %}
 ```yaml
 environments:
   main:
@@ -43,8 +37,6 @@ environments:
             tls-acme: 'true'
             insecure: Redirect
 ```
-{% endtab %}
-{% endtabs %}
 
 {% hint style="info" %}
 As checking every page of your website might be a bit a tedious job, you can make use of [mixed-content-scan](https://github.com/bramus/mixed-content-scan). This will crawl the entire site and give you back pages that include assets from a non-HTTPS site.
@@ -92,4 +84,3 @@ Lagoon understands the concept of development and production environments. Devel
 During project setup, the production environment should already be defined. If that's omitted, your environment will run in development mode. You can check if the environment is set as production environment in the Lagoon user interface. If the production environment is not set, let your Lagoon administrator know, and they will configure the system accordingly.
 
 ![The production environment is labelled in green on the left. ](../.gitbook/assets/lagoon-ui-production%20%282%29%20%282%29.png)
-

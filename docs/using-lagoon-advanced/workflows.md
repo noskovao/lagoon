@@ -48,8 +48,6 @@ Automatic pull request environments are a fantastic thing. But it would also be 
 
 The following example will sync the staging database on the first rollout of the pull request environment:
 
-{% tabs %}
-{% tab title=".lagoon.yml" %}
 ```yaml
 tasks:
   post-rollout:
@@ -62,8 +60,6 @@ tasks:
         service: cli
         shell: bash
 ```
-{% endtab %}
-{% endtabs %}
 
 ## Promotion
 
@@ -102,4 +98,3 @@ Lagoon will now do the following:
 * Run all post-rollout tasks like a normal deployment.
 
 You will receive the same notifications of success or failures like any other deployment.
-

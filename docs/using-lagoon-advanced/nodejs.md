@@ -61,8 +61,6 @@ If we only implemented Part A, we would have a good experience. In the real worl
 
 With these script functionalities, we simplify the start of our application. We can see many `package.json` files that look like:
 
-{% tabs %}
-{% tab title="package.json" %}
 ```javascript
 {
   "name": "node",
@@ -77,8 +75,6 @@ With these script functionalities, we simplify the start of our application. We 
   }
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 and with the defined `scripts` section we can run our application just with:
 
@@ -94,13 +90,9 @@ npm start
 
 This is nice and makes the life of developers easier. So we also end up using the same within Dockerfiles:
 
-{% tabs %}
-{% tab title=".dockerfile" %}
 ```text
 CMD ["yarn", "start"]
 ```
-{% endtab %}
-{% endtabs %}
 
 Unfortunately there is a big problem with this:
 
@@ -113,4 +105,3 @@ CMD ["node", "index.js"]
 ```
 
 This allows Node.js to properly terminate and Docker/Kubernetes will wait for Node.js to be finished.
-

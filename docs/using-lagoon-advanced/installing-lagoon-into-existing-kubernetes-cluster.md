@@ -6,7 +6,7 @@ description: >-
 
 # Installing Lagoon Into Existing Kubernetes Cluster
 
-## Requirements 
+## Requirements
 
 * Kubernetes 1.18+
 * Familiarity with [Helm](https://helm.sh/) and [Helm Charts](https://helm.sh/docs/topics/charts/#helm), and [kubectl](https://kubernetes.io/docs/tasks/tools/).
@@ -90,48 +90,44 @@ Note: We don’t generally recommend using the Lagoon Admin role, but you’ll n
 1. Add Helm repo: `helm repo add harbor https://helm.goharbor.io`
 2. Create the file `harbor-values.yml` inside of your config directory:
 
-{% tabs %}
-{% tab title="harbor-values.yml" %}
-```yaml
-expose:
-  ingress:
-    annotations:
-      kubernetes.io/tls-acme: "true"
-    hosts:
-     core: harbor.lagoon.example.com
-  tls:
-    enabled: true
-    certSource: secret
-    secret:    
-      secretName: harbor-harbor-ingress
-externalURL: https://harbor.lagoon.example.com
-harborAdminPassword: <your Harbor Admin Password>
-chartmuseum:
-  enabled: false
-clair:
-  enabled: false
-notary:
-  enabled: false
-trivy:
-  enabled: false
-jobservice:
-  jobLogger: stdout
-registry:
-  replicas: 1
+      ```yaml
+      expose:
+      ingress:
+         annotations:
+            kubernetes.io/tls-acme: "true"
+         hosts:
+         core: harbor.lagoon.example.com
+      tls:
+         enabled: true
+         certSource: secret
+         secret:    
+            secretName: harbor-harbor-ingress
+      externalURL: https://harbor.lagoon.example.com
+      harborAdminPassword: <your Harbor Admin Password>
+      chartmuseum:
+      enabled: false
+      clair:
+      enabled: false
+      notary:
+      enabled: false
+      trivy:
+      enabled: false
+      jobservice:
+      jobLogger: stdout
+      registry:
+      replicas: 1
 
-```
-{% endtab %}
-{% endtabs %}
+      ```
 
-1. Install Harbor:`helm upgrade --install --create-namespace --namespace harbor --wait -f harbor-values.yaml --version=1.5.2 harbor harbor/harbor`
+3. Install Harbor:`helm upgrade --install --create-namespace --namespace harbor --wait -f harbor-values.yaml --version=1.5.2 harbor harbor/harbor`
    1. We are currently using Harbor version 1.5.2. A recent update to Harbor breaks the API.
-2. Visit Harbor at the URL you set in `harbor.yml`.
+4. Visit Harbor at the URL you set in `harbor.yml`.
    1. Username: admin
    2. Password:
 
       `kubectl -n harbor get secret harbor-harbor-core -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode`
-3. Add the above Harbor credentials to the Lagoon Core `values.yml` that you created at the beginning of the process, as well as `harbor-values.yml`. 
-4. Upgrade lagoon-core release with the updated `values.yml` file: `helm upgrade --namespace lagoon-core -f values.yaml lagoon-core lagoon/lagoon-core`
+5. Add the above Harbor credentials to the Lagoon Core `values.yml` that you created at the beginning of the process, as well as `harbor-values.yml`. 
+6. Upgrade lagoon-core release with the updated `values.yml` file: `helm upgrade --namespace lagoon-core -f values.yaml lagoon-core lagoon/lagoon-core`
 
 {% hint style="info" %}
 Note: Currently we only allow for one Harbor instance per Lagoon Core. This can be less than ideal, depending on the project, so we are currently working to implement a solution where users will be able to have a Harbor instance for each Lagoon Remote. 
@@ -147,8 +143,6 @@ Now we will install Lagoon Remote into the Lagoon namespace. The [RabbitMQ](../d
    3. taskSSHHost: `kubectl get service lagoon-core-broker-amqp-ext -o custom-columns="NAME:.metadata.name,IP ADDRESS:.status.loadBalancer.ingress[*].ip,HOSTNAME:.status.loadBalancer.ingress[*].hostname"`
 2. Run `helm upgrade --install --create-namespace --namespace lagoon -f remote-values.yaml  lagoon-remote lagoon/lagoon-remote`
 
-{% tabs %}
-{% tab title="remote-values.yml" %}
 ```yaml
 lagoon-build-deploy:
   enabled: true
@@ -188,8 +182,6 @@ dbaas-operator:
       user: root
 
 ```
-{% endtab %}
-{% endtabs %}
 
 ## **Querying with GraphQL**
 
@@ -205,40 +197,32 @@ dbaas-operator:
 
    `query allProjects {allProjects {name } }`
 
-5. This should give you the following response: 
+5. This should give you the following response:
 
-   `{`
-
-     `"data": {`
-
-       `"allProjects": []`
-
-     `}`
-
-   `}`
+      ```graphql
+         {
+         "data": {
+            "allProjects": []
+         }
+         }
+      ```
 
    1. [Read more about GraphQL here in our documentation. ](graphql.md)
 
 6. Once you get the correct response, we need to add a mutation.
    1. Run the following query:
 
-      `mutation addKubernetes {`
-
-        `addKubernetes(input:`
-
-        `{`
-
-          `name: "<TARGET-NAME-FROM-REMOTE-VALUES.yml>",`
-
-          `consoleUrl: "<URL-OF-K8S-CLUSTER>",`
-
-          `token: "xxxxxx”`
-
-          `routerPattern: "${environment}.${project}.lagoon.example.com"`
-
-        `}){id}`
-
-      `}`
+      ```graphql
+            mutation addKubernetes {
+            addKubernetes(input:
+            {
+               name: "<TARGET-NAME-FROM-REMOTE-VALUES.yml>",
+               consoleUrl: "<URL-OF-K8S-CLUSTER>",
+               token: "xxxxxx”
+               routerPattern: "${environment}.${project}.lagoon.example.com"
+            }){id}
+            }
+      ```
 
       1. consoleUrl: API Endpoint of Kubernetes Cluster
       2. token: `kubectl -n lagoon describe secret $(kubectl -n lagoon get secret | grep kubernetes-build-deploy | awk '{print $1}') | grep token: | awk '{print $2}'`
@@ -278,29 +262,24 @@ Lagoon creates a deploy key for each project. You now need to add it as a deploy
 1. Add Helm repository: `helm repo add stable https://charts.helm.sh/stable`
 2. Create `efs-provisioner-values.yml` in your config directory and update the values:
 
-{% tabs %}
-{% tab title="efs-provisioner-values.yml" %}
-```yaml
-efsProvisioner:
-  efsFileSystemId: <efsFileSystemId>
-  awsRegion: <awsRegion>
-  path: /
-  provisionerName: example.com/aws-efs
-  storageClass:
-    name: bulk
-    isDefault: false
-    reclaimPolicy: Delete
-    mountOptions: []
-global:
-  deployEnv: prod
+      ```yaml
+      efsProvisioner:
+      efsFileSystemId: <efsFileSystemId>
+      awsRegion: <awsRegion>
+      path: /
+      provisionerName: example.com/aws-efs
+      storageClass:
+         name: bulk
+         isDefault: false
+         reclaimPolicy: Delete
+         mountOptions: []
+      global:
+      deployEnv: prod
 
-```
-{% endtab %}
-{% endtabs %}
+      ```
 
- 3. Install EFS Provisioner:`helm upgrade --install --create-namespace --namespace efs-provisioner -f efs-provisioner-values.yaml  efs-provisioner stable/efs-provisioner`
+3. Install EFS Provisioner:`helm upgrade --install --create-namespace --namespace efs-provisioner -f efs-provisioner-values.yaml  efs-provisioner stable/efs-provisioner`
 
 ## Add Group
 
 1. `lagoon add group -N groupname`
-

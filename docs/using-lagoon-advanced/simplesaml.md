@@ -9,7 +9,7 @@ This is an example of how to add SimpleSAMLphp to your project and then modify c
 Add SimpleSAMLphp to your project:
 
 ```text
-$ composer req simplesamlphp/simplesamlphp
+composer req simplesamlphp/simplesamlphp
 ```
 
 ### Modify configuration for SimpleSAMLphp
@@ -45,9 +45,7 @@ Alter other settings to your liking:
 
 Add authsources \(IdPs\) to `authsources.php`, see example:
 
-{% tabs %}
-{% tab title="authsources.php" %}
-```text
+```php
   'default-sp' => [
     'saml:SP',
 
@@ -89,14 +87,10 @@ Add authsources \(IdPs\) to `authsources.php`, see example:
     ],
   ],
 ```
-{% endtab %}
-{% endtabs %}
 
 Add IdP metadata to `saml20-idp-remote.php`, see example:
 
-{% tabs %}
-{% tab title="Plain Text" %}
-```text
+```php
 <?php
 /**
  * SAML 2.0 remote IdP metadata for SimpleSAMLphp.
@@ -120,8 +114,6 @@ $metadata['https://YOUR_IDP_DOMAIN.TLD'] = [
 
 ];
 ```
-{% endtab %}
-{% endtabs %}
 
 In your build process, copy config files to SimpleSAMLphp:
 
@@ -133,8 +125,6 @@ In your build process, copy config files to SimpleSAMLphp:
 
 Create file  `lagoon/nginx/location_prepend_simplesamlphp.conf`:
 
-{% tabs %}
-{% tab title="location\_prepend\_simplesamlphp.conf" %}
 ```text
 location ^~ /simplesaml {
     alias /app/vendor/simplesamlphp/simplesamlphp/www;
@@ -149,8 +139,6 @@ location ^~ /simplesaml {
     }
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 This will route `/simplesaml` URLs to SimpleSAMLphp in vendor.
 
@@ -158,8 +146,6 @@ This will route `/simplesaml` URLs to SimpleSAMLphp in vendor.
 
 Modify `nginx.dockerfile` and add `location_prepend_simplesamlphp.conf` to the image:
 
-{% tabs %}
-{% tab title="nginx.dockerfile" %}
 ```text
 ARG CLI_IMAGE
 FROM ${CLI_IMAGE} as cli
@@ -174,6 +160,3 @@ RUN fix-permissions /etc/nginx/conf.d/drupal/location_prepend_simplesamlphp.conf
 # Define where the Drupal Root is located
 ENV WEBROOT=public
 ```
-{% endtab %}
-{% endtabs %}
-

@@ -78,4 +78,3 @@ Host *
 Host ssh.lagoon.amazeeio.cloud
   IdentityFile ~/.ssh/[YOUR-PRIVATE-KEY-FOR-USE-ON-LAGOON]
 ```
-

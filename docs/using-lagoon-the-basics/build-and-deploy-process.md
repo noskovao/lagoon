@@ -111,6 +111,3 @@ If any of them fail, Lagoon will immediately stop and notify you.
 ## 12. Success
 
 If all went well and nothing threw any errors, Lagoon will mark this build as successful and inform you via defined notifications. ✅
-
-
-

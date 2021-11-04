@@ -36,4 +36,3 @@ As Lagoon supports many different Git hosts, we have split off those instruction
 ## 4. Next: First deployment
 
 Congratulations, you are now ready to run your [first deployment](first-deployment.md).
-

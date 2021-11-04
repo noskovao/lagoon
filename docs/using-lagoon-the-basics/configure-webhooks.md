@@ -61,4 +61,3 @@ Managing the following settings will require you to have a high level of access 
 
      ![Select the Bitbucket Triggers for your webhook. ](../.gitbook/assets/bb_webhook_1.png)
 5. Click `Save` to save the webhook configurations for Bitbucket.
-

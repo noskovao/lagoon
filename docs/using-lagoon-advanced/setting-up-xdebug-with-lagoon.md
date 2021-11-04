@@ -4,7 +4,7 @@
 Note: amazee.io's base images are currently using Xdebug v2, and will be upgraded soon. You can [keep track on this issue](https://github.com/uselagoon/lagoon-images/issues/40). 
 {% endhint %}
 
-##  Enable Xdebug Extension
+## Enable Xdebug Extension
 
 Base images provided by amazee.io are pre-configured to include `Xdebug`. For performance reasons, the extension is not installed by default. To install Xdebug, set the environment variable `XDEBUG_ENABLE` to any string.
 
@@ -83,6 +83,3 @@ Make sure the activation cookie is set for the website you want to start debuggi
 * You should see a message like: `host.docker.internal (192.168.65.2:9000) open`.
 * When using Lando locally, in order to debug scripts run from the CLI you must first SSH into the cli container via `lando ssh`. You won’t be able to debug things by running `lando drush` or `lando php`.
 * You can enable the Xdebug log by setting the `XDEBUG_LOG` environment variable. Logs will be saved to `/tmp/xdebug.log`.
-
-
-

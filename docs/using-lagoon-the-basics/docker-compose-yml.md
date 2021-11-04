@@ -16,8 +16,6 @@ This is intentional as the `docker-compose` file is there to define your local e
 
 Here a straightforward example of a `docker-compose.yml` file for Drupal:
 
-{% tabs %}
-{% tab title="docker-compose.yml" %}
 ```yaml
 version: '2.3'
 
@@ -70,8 +68,6 @@ services:
     labels:
       lagoon.type: mariadb
 ```
-{% endtab %}
-{% endtabs %}
 
 ## Basic settings
 
@@ -154,8 +150,6 @@ Lagoon still needs to understand which of the two services is the actual individ
 
 An example:
 
-{% tabs %}
-{% tab title="docker-compose.yml" %}
 ```yaml
 nginx:
     build:
@@ -176,8 +170,6 @@ php:
       lagoon.name: nginx # We want this service be part of the nginx pod in Lagoon.
       lagoon.deployment.servicetype: php
 ```
-{% endtab %}
-{% endtabs %}
 
 In the example above, the services are named `nginx` and `php` \(but you can call them whatever you want\). The `lagoon.name` tells Lagoon which services go together - all of the services with the same name go together.
 
@@ -227,4 +219,3 @@ This also expects the label `lagoon.template` to be defined with the path to the
 {% hint style="info" %}
 The template is called with `oc process`, so you should define the same parameters as in the default templates.
 {% endhint %}
-

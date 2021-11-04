@@ -9,4 +9,3 @@ There is more information on the `MAINTAINER` role available in the [RBAC](https
 ## Specifying the project key
 
 It is possible to specify an SSH private key when creating a project, but this is not recommended as it has security implications.
-
