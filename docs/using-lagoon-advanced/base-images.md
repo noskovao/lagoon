@@ -28,15 +28,11 @@ The metapackage is a Composer package that wraps several other components. These
 
 Here’s an example from the `composer.json` in a Laravel base image:
 
-{% tabs %}
-{% tab title="composer.json" %}
 ```text
 "require": {
     "amazeelabs/algm_laravel_baseimage": "*"
 },
 ```
-{% endtab %}
-{% endtabs %}
 
 We only require this metapackage, which points to a GitHub repository.
 
@@ -270,4 +266,3 @@ As shown in the screenshot below from Harbor, the image we’ve just built in Je
 ## Acknowledgement
 
 The base image structure draws heavily \(and, in fact, is a fork of\) [Denpal](https://github.com/dennisarslan/denpal). It is based on the original [Drupal Composer Template](https://github.com/drupal-composer/drupal-project), but includes everything necessary to run on amazee.io \(either the local development environment or on amazee.io servers\).
-

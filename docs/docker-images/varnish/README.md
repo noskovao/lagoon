@@ -37,4 +37,3 @@ Environment variables defined in Varnish base image
 | `CACHE_SIZE` | 100M | Cache size. |
 | `LISTEN` | 8080 | Default backend server port. |
 | `MANAGEMENT_LISTEN` | 6082 | Default management listening port. |
-

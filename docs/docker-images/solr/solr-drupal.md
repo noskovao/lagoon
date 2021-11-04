@@ -13,4 +13,3 @@ For each Solr version, there is a specific `solr-drupal:<version>` Docker image.
 * 5.5 [\[Dockerfile\]](https://github.com/uselagoon/lagoon-images/blob/main/images/solr-drupal/5.5.Dockerfile)
 * 6.6 [\[Dockerfile\]](https://github.com/uselagoon/lagoon-images/blob/main/images/solr-drupal/6.6.Dockerfile)
 * 7.7 [\[Dockerfile\]](https://github.com/uselagoon/lagoon-images/blob/main/images/solr-drupal/7.7.Dockerfile)
-

@@ -161,4 +161,3 @@ The configmap from which this config file is generated is stored within Lagoon i
 * `WITH_TRIVY`
   * Tells harbor-core if the Trivy service is being used.
   * The default value is `true`.
-

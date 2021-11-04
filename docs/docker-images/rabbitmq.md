@@ -24,15 +24,11 @@ This image is prepared to be used on Lagoon. There are therefore some things alr
 
 By default, a policy called `lagoon-ha` is created at startup, but it is not active because it doesn't match any queue's name pattern \(see default [Environment Variables](rabbitmq.md#environment-variables)\).
 
-{% tabs %}
-{% tab title="definitions.json" %}
 ```javascript
 "policies":[
         {"vhost":"${RABBITMQ_DEFAULT_VHOST}","name":"lagoon-ha","pattern":"${RABBITMQ_DEFAULT_HA_PATTERN}", "definition":{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic","ha-sync-batch-size":5}}
   ]
 ```
-{% endtab %}
-{% endtabs %}
 
 By default, the `ha-mode` is set to `exactly` which controls the exact number of mirroring nodes for a queue \(mirrors\). The number of nodes is controller by `ha-params`.
 
@@ -48,4 +44,3 @@ Environment variables defined in RabbitMQ base image:
 | `RABBITMQ_DEFAULT_PASS` | guest | Password for management UI access. |
 | `RABBITMQ_DEFAULT_VHOST` | / | RabbitMQ main virtualhost. |
 | `RABBITMQ_DEFAULT_HA_PATTERN` | ^$ | Regular expression to match for mirrored queues. |
-

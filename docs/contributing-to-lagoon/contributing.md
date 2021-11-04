@@ -41,4 +41,3 @@ Another good way is also to talk to us via RocketChat about your idea. [Join tod
 ## I wrote some code
 
 Epic! Please send us a pull request for it, we will do our best to review it and merge it if possible.
-

@@ -27,4 +27,3 @@ Environment variables are meant to contain common information for the PHP contai
 | Environment Variable | Default | Description |
 | :--- | :--- | :--- |
 | `LAGOON_LOCALDEV_HTTP_PORT` | 3000 | tells the local development environment on which port we are running |
-

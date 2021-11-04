@@ -32,8 +32,6 @@ If you installed Drupal via composer, please check your `composer.json` and make
 
 Don't forget to customize the values in `lagoon-project` & `LAGOON_ROUTE` with your site-specific name & the URL you'd like to access the site with. Here's an example:
 
-{% tabs %}
-{% tab title="docker-compose.yml" %}
 ```yaml
 x-environment:
   &default-environment
@@ -41,8 +39,6 @@ x-environment:
     # Route that should be used locally. If you are using pygmy, this route *must* end with .docker.amazee.io.
     LAGOON_ROUTE: http://drupal-example.docker.amazee.io
 ```
-{% endtab %}
-{% endtabs %}
 
 ## 3. Build Images
 
@@ -178,7 +174,6 @@ Verify that everything works with visiting the URL of your project. You should h
 
 A Drupal site also needs the files directory. As the whole folder is mounted into the Docker containers, add the files into the correct folder \(probably `web/sites/default/files`, `sites/default/files` or something similar\). Remember what you've set as your `WEBROOT` - [it may not be the same for all projects](step-by-step-getting-drupal-ready-to-run-on-lagoon.md#note-about-webroot-in-drupal-8).
 
-## 9. Done!
+## 9. Done
 
 You are done with your local setup. The Lagoon team wishes happy Drupaling!
-

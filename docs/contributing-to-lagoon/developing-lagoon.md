@@ -35,15 +35,15 @@ We have provided a number of routines in the [Makefile](https://github.com/usela
 1. Here `-j8` tells **make** to run 8 tasks in parallel to speed the build up. Adjust as necessary.
 2. We have set `SCAN_IAMGES=false` as a default to not scan the built images for vulnerabilities. If set to true, a `scan.txt` file will be created in the project root with the scan output.
 
-```bash
-make -j8 build
-```
+    ```bash
+    make -j8 build
+    ```
 
 3. Start Lagoon test routine using the defaults in the Makefile \(all tests\).
 
-```bash
-make kind/test
-```
+    ```bash
+    make kind/test
+    ```
 
 {% hint style="warning" %}
 There are a lot of tests configured to run by default - please consider only testing locally the minimum that you need to ensure functionality. This can be done by specifying or removing tests from the `TESTS` variable in the Makefile.
@@ -221,52 +221,52 @@ In this example we want to add some functionality to the Lagoon deploy logic in 
 
 1. Start a local KinD cluster with Lagoon installed from locally built images, and smoke-test it by running a single test suite:
 
-```bash
-make -j8 kind/test TESTS='[features-api-variables]'
-```
+    ```bash
+    make -j8 kind/test TESTS='[features-api-variables]'
+    ```
 
 2. Edit `images/kubectl-build-deploy-dind/build-deploy-docker-compose.sh`.
 
-```diff
---- a/images/kubectl-build-deploy-dind/build-deploy-docker-compose.sh
-+++ b/images/kubectl-build-deploy-dind/build-deploy-docker-compose.sh
-@@ -1,5 +1,7 @@
- #!/bin/bash
+    ```diff
+    --- a/images/kubectl-build-deploy-dind/build-deploy-docker-compose.sh
+    +++ b/images/kubectl-build-deploy-dind/build-deploy-docker-compose.sh
+    @@ -1,5 +1,7 @@
+    #!/bin/bash
 
-+echo HELLO WORLD
-+
- function cronScheduleMoreOftenThan30Minutes() {
-   #takes a unexpanded cron schedule, returns 0 if it's more often that 30 minutes
-   MINUTE=$(echo $1 | (read -a ARRAY; echo ${ARRAY[0]}) )
-```
+    +echo HELLO WORLD
+    +
+    function cronScheduleMoreOftenThan30Minutes() {
+      #takes a unexpanded cron schedule, returns 0 if it's more often that 30 minutes
+      MINUTE=$(echo $1 | (read -a ARRAY; echo ${ARRAY[0]}) )
+    ```
 
 3. Now rebuild the `kubectl-build-deploy-dind` image with the edits included.
 
-```bash
-rm build/kubectl-build-deploy-dind
-make -j8 build/kubectl-build-deploy-dind
-```
+    ```bash
+    rm build/kubectl-build-deploy-dind
+    make -j8 build/kubectl-build-deploy-dind
+    ```
 
 4. Push the newly built image into the cluster registry. It will now be used for future deploys.
 
-```bash
-make kind/push-images IMAGES=kubectl-build-deploy-dind
-```
+    ```bash
+    make kind/push-images IMAGES=kubectl-build-deploy-dind
+    ```
 
 5. Rerun the tests.
 
-```bash
-make kind/retest TESTS='[features-api-variables]'
-```
+    ```bash
+    make kind/retest TESTS='[features-api-variables]'
+    ```
 
 6. See the edits have been applied.
 
-```bash
-$ kubectl -n ci-features-api-variables-control-k8s-lagoon-api-variables logs lagoon-build-lat2b | grep -A2 build-deploy-docker-compose.sh
-+ . /kubectl-build-deploy/build-deploy-docker-compose.sh
-++ echo HELLO WORLD
-HELLO WORLD
-```
+    ```bash
+    $ kubectl -n ci-features-api-variables-control-k8s-lagoon-api-variables logs lagoon-build-lat2b | grep -A2 build-deploy-docker-compose.sh
+    + . /kubectl-build-deploy/build-deploy-docker-compose.sh
+    ++ echo HELLO WORLD
+    HELLO WORLD
+    ```
 
 #### Add tests
 
@@ -274,20 +274,19 @@ HELLO WORLD
 2. Edit `tests/tests/features-api-variables.yaml` and add a test case.
 3. Rebuild the `tests` image.
 
-```bash
-rm build/tests
-make -j8 build/tests
-```
+    ```bash
+    rm build/tests
+    make -j8 build/tests
+    ```
 
 4. Push the new `tests` image into the cluster registry.
 
-```bash
-make kind/push-images IMAGES=tests
-```
+    ```bash
+    make kind/push-images IMAGES=tests
+    ```
 
 5. Rerun the tests.
 
-```bash
-make kind/retest TESTS='[features-api-variables]'
-```
-
+    ```bash
+    make kind/retest TESTS='[features-api-variables]'
+    ```

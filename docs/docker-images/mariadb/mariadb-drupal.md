@@ -11,4 +11,3 @@ The Lagoon `mariadb-drupal` Docker image [\[Dockerfile\]](https://github.com/use
 | `MARIADB_PASSWORD` | drupal | Password of default user created at startup. |
 
 If the `LAGOON_ENVIRONMENT_TYPE` variable is set to `production`, performances are set accordingly by using `MARIADB_INNODB_BUFFER_POOL_SIZE=1024` and `MARIADB_INNODB_LOG_FILE_SIZE=256`.
-

@@ -35,7 +35,7 @@ Configure the Fastly service ID and API token. You can use runtime environment v
 
 A `site ID` is required, the module will generate one for you when you first install it. The idea behind the site ID is that it is a unique string which is appended as a cache tag on all requests. Thus, you are able to purge a single site from Fastly, even though multiple sites may flow through the same service in Fastly.
 
-#### Set the purge options
+### Set the purge options
 
 * Cache tag hash length: 4
 * Purge method: Use soft purge
@@ -46,7 +46,7 @@ A `4` character cache tag is plenty for most sites, a `5` character cache tag is
 
 ![Fastly admin UI for purging](https://camo.githubusercontent.com/8d0fb54560570966c2387c9b88c76d366f5d85e2f8901b644a06ca3f41210ed2/68747470733a2f2f692e6962622e636f2f34677777644c762f666173746c792d70757267652e706e67)
 
-#### Set the Stale Content Options
+### Set the Stale Content Options
 
 Set the options to what makes sense for your site. Minimum 1 hour \(`3600`\), maximum 1 week `604800`\). Generally something like the following will be fine:
 
@@ -65,12 +65,12 @@ Visit the purge page `/admin/config/development/performance/purge`
 
 Set up the following options:
 
-**Cache Invalidation**
+#### Cache Invalidation
 
 * Drupal Origin: Tag
 * Fastly: E, Tag, URL
 
-**Queue**
+#### Queue
 
 * Queuers: Core tags queuer, Purge block\(s\)
 * Queue: Database
@@ -193,4 +193,3 @@ $settings['reverse_proxy_header'] = 'HTTP_TRUE_CLIENT_IP';
 ```text
 $conf['reverse_proxy_header'] = 'HTTP_TRUE_CLIENT_IP';
 ```
-

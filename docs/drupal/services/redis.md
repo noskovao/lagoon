@@ -2,8 +2,7 @@
 
 We recommend using [Redis](https://redis.io/) for internal caching. Add the Redis service to `docker-compose.yaml`.
 
-{% tabs %}
-{% tab title="docker-compose.yml" %}
+
 ```yaml
   redis:
     image: amazeeio/redis
@@ -13,8 +12,6 @@ We recommend using [Redis](https://redis.io/) for internal caching. Add the Redi
     environment:
       << : *default-environment
 ```
-{% endtab %}
-{% endtabs %}
 
 Also, to configure Redis, add the following to your `settings.php`.
 
@@ -34,8 +31,6 @@ if(getenv('LAGOON')){
   $conf['cache_class_cache_field'] = 'DrupalDatabaseCache';
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 Depending on file system structure, the module paths may need to be updated.
 
@@ -43,8 +38,6 @@ Depending on file system structure, the module paths may need to be updated.
 
 The Drupal 8 config is largely stock. Notably, Redis is disabled while Drupal is being installed.
 
-{% tabs %}
-{% tab title="settings.php" %}
 ```php
 if (getenv('LAGOON')){
   $settings['redis.connection']['interface'] = 'PhpRedis';
@@ -86,15 +79,11 @@ if (getenv('LAGOON')){
   }
 }
 ```
-{% endtab %}
-{% endtabs %}
 
 ### Persistent
 
 Redis can also be configured as a persistent backend.
 
-{% tabs %}
-{% tab title="docker-compose.yml" %}
 ```yaml
 redis:
   image: amazeeio/redis-persistent
@@ -103,8 +92,6 @@ redis:
   environment:
     << : *default-environment
 ```
-{% endtab %}
-{% endtabs %}
 
 ## Environment Variables
 
@@ -122,8 +109,6 @@ Here is a snippet to implement a Redis failover in case of the Redis container n
 
 The following is inserted into Drupal's active `settings.php` file. 
 
-{% tabs %}
-{% tab title="settings.php" %}
 ```text
 if (getenv('LAGOON') {
   $redis = DRUPAL_ROOT . '/sites/all/modules/contrib/redis';
@@ -158,6 +143,3 @@ if (getenv('LAGOON') {
 }
 
 ```
-{% endtab %}
-{% endtabs %}
-

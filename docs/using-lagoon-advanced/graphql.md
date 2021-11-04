@@ -97,4 +97,3 @@ mutation editProjectProductionEnvironmentAndBranches {
   }
 }
 ```
-

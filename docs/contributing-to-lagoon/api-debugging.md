@@ -60,4 +60,3 @@ rm build/api && make build/api && docker-compose restart api
 ```
 
 5 . Restart VScode.
-

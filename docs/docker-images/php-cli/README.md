@@ -67,4 +67,3 @@ service:
     environment:
     << : *default-environment
 ```
-

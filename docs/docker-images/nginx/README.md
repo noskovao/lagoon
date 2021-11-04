@@ -41,13 +41,9 @@ To get more details about the various types of redirects that can be achieved, s
 
 After you put the `redirects-map.conf` in place, you also need to include it in your `nginx.dockerfile` in order to get the configuration file into your build.
 
-{% tabs %}
-{% tab title="nginx.dockerfile" %}
 ```bash
 COPY redirects-map.conf /etc/nginx/redirects-map.conf
 ```
-{% endtab %}
-{% endtabs %}
 
 ### Basic Authentication
 
@@ -63,4 +59,3 @@ Environment variables are meant to contain common information for the `nginx` co
 | `BASIC_AUTH_USERNAME` | \(not set\) | Username for basic authentication |
 | `BASIC_AUTH_PASSWORD` | \(not set\) | Password for basic authentication \(unencrypted\) |
 | `FAST_HEALTH_CHECK` | \(not set\) | If set to `true` this will redirect GET requests from certain user agents \(StatusCake, Pingdom, Site25x7, Uptime, nagios\) to the lightweight Lagoon service healthcheck. |
-

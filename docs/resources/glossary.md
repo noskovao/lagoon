@@ -71,4 +71,3 @@ description: >-
 | Varnish | A powerful, open-source HTTP engine/reverse HTTP proxy that can speed up a website by caching \(or storing\) a copy of a webpage the first time a user visits. |
 | VM | Virtual Machine |
 | Webhook | A webhook is a way for an app like GitHub, GitLab, Bitbucket, etc, to provide other applications with immediate data and act upon something, like a pull request. |
-

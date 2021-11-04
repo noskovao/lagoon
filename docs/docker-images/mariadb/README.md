@@ -46,4 +46,3 @@ Environment variables defined in MariaDB base image:
 | `MARIADB_COPY_DATA_DIR_SOURCE` | unset | Path which the entrypoint script of mariadb will use to copy into the defined `MARIADB_DATA_DIR`, this can be used for prepopulating the MariaDB with a database. The scripts expects actual MariaDB data files and not a sql file! Plus it only copies data if the destination does not already have a mysql datadir in it. |
 
 If the `LAGOON_ENVIRONMENT_TYPE` variable is set to `production`, performances are set accordingly by using `MARIADB_INNODB_BUFFER_POOL_SIZE=1024` and `MARIADB_INNODB_LOG_FILE_SIZE=256`.
-

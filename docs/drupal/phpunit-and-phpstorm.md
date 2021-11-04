@@ -1,9 +1,9 @@
 # PHPUnit and PhpStorm
 
 {% hint style="info" %}
-**This document assumes the following:** 
+**This document assumes the following:**
 
-* You are using Docker. 
+* You are using Docker.
 * You are using a standard Amazee/Lagoon project with a [`docker-compose.yml`](../using-lagoon-the-basics/docker-compose-yml.md) file. 
 * You are on a Mac - it should work for other operating systems but folder structure and some configuration settings may be different.
 {% endhint %}
@@ -26,8 +26,6 @@
 
 ![Set Up Docker](../.gitbook/assets/1-docker-setup.png)
 
-
-
 ### Set Up CLI interpreter
 
 **Add a new CLI interpreter:**
@@ -46,9 +44,7 @@
 
 ![Add a new CLI interpreter:](../.gitbook/assets/2-cli-interpreter.png)
 
-
-
-### **Set Up Remote Interpreter**
+### Set Up Remote Interpreter
 
 **Add Remote Interpreter:**
 
@@ -62,8 +58,6 @@
    * Default configuration file\*: `/app/web/core/phpunit.xml`
 
 ![Add Remote Interpreter](../.gitbook/assets/3-remote-interpreter-setup.png)
-
-
 
 #### Setup/Configure Runner Template <a id="Drupal:PHPUnitandPhpStorm-Setup/ConfigureRunnerTemplate"></a>
 
@@ -85,11 +79,10 @@
 2. The project is working without any errors, visit the site just to make sure it all works as expected - this is not 100% necessary, but nice to know it is working normally.
 3. We should be ready to run some tests!
 
-## Ready to Run!
+## Ready to Run
 
 Now you have the above configuration set up it should be as straightforward as going to the test you want to run and pressing the green arrow! 
 
 Once you press this PhpStorm will use docker to enter the cli container than start running PHPUnit based upon the config, exciting right?
 
 ![Here it is in action, look at it go!!](../.gitbook/assets/5-going-green-1-.gif)
-

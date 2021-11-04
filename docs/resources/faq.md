@@ -12,7 +12,7 @@ You should have either a private RocketChat or Slack channel that was set up for
 
 If you've found a bug or security issue, please send your findings to [support@amazee.io](mailto:support@amazee.io). Please **DO NOT** file a GitHub issue for them.
 
-## I'm interested in amazee.io's hosting services with Lagoon!
+## I'm interested in amazee.io's hosting services with Lagoon
 
 That's great news! You can contact us via email at [inquiries@amazee.io](mailto:inquiries@amazee.io).
 
@@ -197,4 +197,3 @@ You can find and subscribe to the amazee.io StatusPage here: [https://status.ama
 ## I have a question that isn't answered here.
 
 You can reach out to us via [RocketChat](https://amazeeio.rocket.chat/home) or email at [support@amazee.io](mailto:support@amazee.io).
-

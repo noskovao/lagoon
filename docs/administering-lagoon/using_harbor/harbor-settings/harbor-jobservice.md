@@ -38,4 +38,3 @@ The configmap from which this config file is generated is stored within Lagoon i
 * **`SCANNER_STORE_REDIS_URL`**
   * This value tells `harbor-trivy` how to connect to its Redis store.
   * The default value is `redis://harbor-redis:6379/4`.
-

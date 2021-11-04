@@ -21,4 +21,3 @@ Mid-term backups are not automatically provided by Lagoon and depend heavily on 
 ## Long-Term Backups
 
 Long-term backups refer to backups that are kept for multiple months and years. [AWS Glacier](https://aws.amazon.com/glacier/) is often used to store these backups. These types of backups also depend heavily on the underlying infrastructure. Check with your Lagoon administrator to find out what backups are created on your infrastructure.
-

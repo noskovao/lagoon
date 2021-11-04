@@ -139,15 +139,11 @@ If you have environment variables that can safely be saved within a Git reposito
 
 The syntax in the environment files is as following:
 
-{% tabs %}
-{% tab title="myenvironment.env" %}
 ```bash
 MYVARIABLENAME="MyVariableValue"
 MVARIABLENUMBER=4242
 DB_USER=$DB_USERNAME # Redefine DB_USER with the value of DB_USERNAME e.g. if your application expects another variable name for the Lagoon-provided variables.
 ```
-{% endtab %}
-{% endtabs %}
 
 ### `.lagoon.env.$BRANCHNAME`
 
@@ -166,4 +162,3 @@ This variable, if set, will define the [logging](../logging/logging.md) level yo
 On production environments, this value defaults to `E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE`.
 
 On development environments, this value defaults to `E_ALL & ~E_DEPRECATED & ~E_STRICT`.
-

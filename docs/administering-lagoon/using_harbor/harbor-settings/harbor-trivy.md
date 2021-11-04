@@ -17,4 +17,3 @@ Harbor-Trivy is configured via specific environment variables and does not use a
 * `SCANNER_TRIVY_VULN_TYPE`
   * This value tells harbor-trivy what types of vulnerabilities it should be searching for.
   * The default value is `os,library`
-

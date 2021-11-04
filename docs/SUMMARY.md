@@ -80,6 +80,7 @@
 
 * [GraphQL API](administering-lagoon/graphql-queries.md)
 * [Role-Based Access Control \(RBAC\)](administering-lagoon/rbac.md)
+* [SSL Ciphers](administering-lagoon/ssl_ciphers.md)
 * [Harbor](administering-lagoon/using_harbor/README.md)
   * [Security Scanning](administering-lagoon/using_harbor/security_scanning.md)
   * [Harbor Settings](administering-lagoon/using_harbor/harbor-settings/README.md)
@@ -104,4 +105,3 @@
 * [Glossary](resources/glossary.md)
 * [Tutorials, Webinars, and Videos](resources/tutorials-and-webinars.md)
 * [Lagoon Examples](https://github.com/uselagoon/lagoon-examples)
-

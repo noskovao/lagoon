@@ -27,4 +27,3 @@ A custom container entrypoint, `services/harborregistry/entrypoint.sh`, then tra
 * **`REGISTRY_REDIS_PASSWORD`**
   * This environment variable tells `harborregistryctl` the password that should be used to connect to Redis.
   * The default value is an empty string.
-

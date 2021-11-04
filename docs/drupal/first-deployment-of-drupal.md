@@ -149,4 +149,3 @@ Did the deployment fail? Oh no! But we're here to help:
 
 1. Click on the `logs` link in the error notification. It will tell you where in the deployment process the failure happened.
 2. If you can't figure it out, ask your Lagoon administrator, they are here to help!
-
