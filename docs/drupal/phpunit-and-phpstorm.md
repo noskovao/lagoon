@@ -1,12 +1,12 @@
 # PHPUnit and PhpStorm
 
-{% hint style="info" %}
+{: .note .info}
 **This document assumes the following:**
 
 * You are using Docker.
 * You are using a standard Amazee/Lagoon project with a [`docker-compose.yml`](../using-lagoon-the-basics/docker-compose-yml.md) file. 
 * You are on a Mac - it should work for other operating systems but folder structure and some configuration settings may be different.
-{% endhint %}
+
 
 ## Configuring the project
 

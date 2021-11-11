@@ -75,9 +75,9 @@ To set a static port, edit your service definition in your `docker-compose.yml`.
       - "33772:3306" # Exposes port 3306 with a 33772 on the host port. Note by doing this you are responsible for managing port collisions`.
 ```
 
-{% hint style="warning" %}
+{: .note .warning}
 By setting a static port you become responsible for managing port collisions.
-{% endhint %}
+
 
 ### Connect to MySQL
 

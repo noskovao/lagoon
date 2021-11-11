@@ -24,7 +24,7 @@ We take security very seriously. If you discover a security issue or think you f
 
 {% hint style="danger" %}
 Please send your findings to [hello@amazee.io](mailto:hello@amazee.io). Please **DO NOT** file a GitHub issue for them.
-{% endhint %}
+
 
 Security reports are greatly appreciated and will receive public karma and swag! We're also working on a Bug Bounty system.
 

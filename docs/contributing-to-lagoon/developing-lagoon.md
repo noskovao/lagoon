@@ -22,11 +22,11 @@ Running a Lagoon, Kubernetes, or Docker cluster on your local machine consumes a
 
 ## Build Lagoon Locally
 
-{% hint style="warning" %}
+{: .note .warning}
 Only consider building Lagoon this way if you intend to develop features or functionality for it, or want to debug internal processes. We will also be providing instruction to install Lagoon without building it \(i.e. by using the published releases\).
 
 We're using `make` \(see the [Makefile](https://github.com/uselagoon/lagoon/blob/main/Makefile)\) in order to build the needed Docker images, configure Kubernetes and run tests.
-{% endhint %}
+
 
 We have provided a number of routines in the [Makefile](https://github.com/uselagoon/lagoon/blob/main/Makefile) to cover most local development scenarios. Here we will run through a complete process.
 
@@ -45,9 +45,9 @@ We have provided a number of routines in the [Makefile](https://github.com/usela
     make kind/test
     ```
 
-{% hint style="warning" %}
+{: .note .warning}
 There are a lot of tests configured to run by default - please consider only testing locally the minimum that you need to ensure functionality. This can be done by specifying or removing tests from the `TESTS` variable in the Makefile.
-{% endhint %}
+
 
 This process will:
 

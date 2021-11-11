@@ -8,9 +8,9 @@ The [Lagoon `node` Docker image](https://github.com/uselagoon/lagoon-images/tree
 * 12
 * 14
 
-{% hint style="info" %}
+{: .note .info}
 We stop updating EOL Node.js images usually with the Lagoon release that comes after the officially communicated EOL date: [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/).
-{% endhint %}
+
 
 ## Lagoon adaptions
 

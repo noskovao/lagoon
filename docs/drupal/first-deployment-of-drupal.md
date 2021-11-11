@@ -41,11 +41,11 @@ Depending on the post-rollout tasks defined in `.lagoon.yml` , you might have ru
 
 With full Drush site alias support in Lagoon, you can synchronize a local database with the remote Lagoon environment.
 
-{% hint style="warning" %}
+{: .note .warning}
 You may have to tell pygmy about your public keys before the next step.
 
 If you get an error like `Permission denied (publickey)`, check out the documentation here: [pygmy - adding ssh keys](https://docs.lagoon.sh/pygmy/ssh-agent)
-{% endhint %}
+
 
 First let's make sure that you can see the Drush site aliases:
 

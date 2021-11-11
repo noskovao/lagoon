@@ -1,10 +1,13 @@
 # Running Harbor Locally
+
 Lagoon supports running Harbor locally, and it is automatically used for hosting all Kubernetes-based builds (any time the project's `activeSystemsDeploy` value is set to `lagoon_kubernetesBuildDeploy`). When Harbor is ran locally, it makes use of MinIO as a storage backend, which is an AWS S3 compatible local storage solution.
 
-# Settings
+## Settings
+
 Harbor is composed of multiple containers, which all require different settings in order for them to run successfully.
 
 ## Environment Variables
+
 The following environment variables are required to be set in order for Harbor to properly start:
 
 * `HARBOR_REGISTRY_STORAGE_AMAZON_BUCKET`
@@ -38,6 +41,7 @@ The following containers make use of configuration files:
 * [Harbor-Trivy](harbor-settings/harbor-trivy.md)
 
 The following containers do not require configuration files to run:
+
 * Harbor-Nginx
 * Harbor-Portal
 * Harbor-Redis

@@ -38,9 +38,9 @@ environments:
             insecure: Redirect
 ```
 
-{% hint style="info" %}
+{: .note .info}
 As checking every page of your website might be a bit a tedious job, you can make use of [mixed-content-scan](https://github.com/bramus/mixed-content-scan). This will crawl the entire site and give you back pages that include assets from a non-HTTPS site.
-{% endhint %}
+
 
 ### Redirects
 
@@ -58,9 +58,9 @@ To make it as smooth as possible for you to get your site pointing to our server
 
 Before you switch over your domain to Lagoon, make sure you lower the Time-to-Live \(TTL\) before you go live. This will ensure that the switch from the old to the new servers will go quickly. We usually advise a TTL of 300-600 seconds prior to the DNS switch. [More information about TTL](https://en.wikipedia.org/wiki/Time_to_live#DNS_records).
 
-{% hint style="info" %}
+{: .note .info}
 We do not suggest configuring any static IP addresses in your DNS zones. The Lagoon load balancer infrastructure may change over time which can have impact on your site availability if you configure a static IP address.
-{% endhint %}
+
 
 ### Root Domains
 

@@ -32,7 +32,7 @@ The developer role has SSH access only to development environments. This role ca
 
 {% hint style="danger" %}
 IMPORTANT: This role does not prevent the deployment of the production environment as a deployment is triggered via a Git push! You need to make sure that your Git server prevents these users from pushing into the branch defined as production environment.
-{% endhint %}
+
 
 #### Reporter
 

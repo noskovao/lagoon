@@ -76,9 +76,9 @@ mutation editProjectBranches {
 
 Update the production environment within a project:
 
-{% hint style="info" %}
+{: .note .info}
 Important: This requires a redeploy in order for all changes to be reflected in the containers.
-{% endhint %}
+
 
 ```graphql
 mutation editProjectProductionEnvironment {

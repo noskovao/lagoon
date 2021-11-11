@@ -1,8 +1,8 @@
 # Setting up Xdebug with Lagoon
 
-{% hint style="info" %}
+{: .note .info}
 Note: amazee.io's base images are currently using Xdebug v2, and will be upgraded soon. You can [keep track on this issue](https://github.com/uselagoon/lagoon-images/issues/40). 
-{% endhint %}
+
 
 ## Enable Xdebug Extension
 

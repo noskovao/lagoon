@@ -14,9 +14,9 @@ description: >-
 * Cert manager \(for TLS\) - We highly recommend using letsencrypt
 * RWO storage
 
-{% hint style="info" %}
+{: .note .info}
 We acknowledge that this is a lot of steps, and our roadmap for the immediate future includes reducing the number of steps in this process. 
-{% endhint %}
+
 
 ## **Install Lagoon Core**
 
@@ -46,13 +46,13 @@ We acknowledge that this is a lot of steps, and our roadmap for the immediate fu
       2. Secret: use `lagoon-core-keycloak` secret key-value: `LAGOON-CORE-KEYCLOAK`
       3. Retrieve the secret: `kubectl -n lagoon-core get secret lagoon-core-keycloak -o jsonpath="{.data.KEYCLOAK_LAGOON_ADMIN_PASSWORD}" | base64 --decode`
 
-{% hint style="warning" %}
+{: .note .warning}
 Note: Sometimes we run into Docker Hub pull limits. We are considering moving our images elsewhere if this continues to be a problem. 
-{% endhint %}
 
-{% hint style="info" %}
+
+{: .note .info}
 Note: Currently Lagoon only supports one Lagoon per cluster - meaning you can’t currently split your dev/test/prod environments across separate clusters, but this is something we are looking to implement in the future. 
-{% endhint %}
+
 
 ## **Install the Lagoon CLI**
 
@@ -74,9 +74,9 @@ Note: Currently Lagoon only supports one Lagoon per cluster - meaning you can’
       1. Lagoon talks to SSH and authenticates against your public/private key pair, and gets a token for your username.
    2. Verify via `lagoon whoami` that you are logged in.
 
-{% hint style="info" %}
+{: .note .info}
 Note: We don’t generally recommend using the Lagoon Admin role, but you’ll need to create an admin account at first to get started. Ideally, you’ll immediately create another account to work from which is _not_ an admin.
-{% endhint %}
+
 
 ## Create Lagoon user
 
@@ -129,9 +129,9 @@ Note: We don’t generally recommend using the Lagoon Admin role, but you’ll n
 5. Add the above Harbor credentials to the Lagoon Core `values.yml` that you created at the beginning of the process, as well as `harbor-values.yml`. 
 6. Upgrade lagoon-core release with the updated `values.yml` file: `helm upgrade --namespace lagoon-core -f values.yaml lagoon-core lagoon/lagoon-core`
 
-{% hint style="info" %}
+{: .note .info}
 Note: Currently we only allow for one Harbor instance per Lagoon Core. This can be less than ideal, depending on the project, so we are currently working to implement a solution where users will be able to have a Harbor instance for each Lagoon Remote. 
-{% endhint %}
+
 
 ## Install Lagoon Remote
 
@@ -227,9 +227,9 @@ dbaas-operator:
       1. consoleUrl: API Endpoint of Kubernetes Cluster
       2. token: `kubectl -n lagoon describe secret $(kubectl -n lagoon get secret | grep kubernetes-build-deploy | awk '{print $1}') | grep token: | awk '{print $2}'`
 
-{% hint style="info" %}
+{: .note .info}
 Note: Authorization tokens for GraphQL are very short term so you may need to generate a new one. Run `lagoon login` and then cat the `.lagoon.yml` file to get the new token, and replace the old token in the HTTP header with the new one. 
-{% endhint %}
+
 
 ## Add a Project
 

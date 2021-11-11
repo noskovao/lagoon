@@ -8,11 +8,10 @@ The `docker-compose.yml` file is used by Lagoon to:
 
 Docker-compose \(the tool\) is very strict in validating the content of the YAML file, so we can only do configuration within `labels` of a service definition.
 
-{% hint style="warning" %}
+{: .note .warning}
 Lagoon only reads the labels, service names, image names and build definitions from a `docker-compose.yml` file. Definitions like: ports, environment variables, volumes, networks, links, users, etc. are IGNORED.
 
 This is intentional as the `docker-compose` file is there to define your local environment configuration. Lagoon learns from the `lagoon.type` the type of service you are deploying and from that knows about ports, networks and any additional configuration that this service might need.
-{% endhint %}
 
 Here a straightforward example of a `docker-compose.yml` file for Drupal:
 
@@ -108,9 +107,8 @@ If you want Lagoon to build a Dockerfile for your service during every deploymen
 * `dockerfile:`
   * Location and name of the Dockerfile that should be built.
 
-{% hint style="warning" %}
+{: .note .warning}
 Lagoon does NOT support the short version of `build: <Dockerfile>` and will fail if it finds such a definition.
-{% endhint %}
 
 #### `image`
 
@@ -185,9 +183,8 @@ Lagoon comes with a variety of pre-defined templates, which set all kinds of nee
 
 If you need to make changes to the OpenShift templates, you can define your own template via `lagoon.template`.
 
-{% hint style="info" %}
+{: .note .info}
 The template is called with `oc process`, so you should define the same parameters as seen in the default templates.
-{% endhint %}
 
 You can also overwrite the templates for a specific environment. This is done in [`.lagoon.yml`](lagoon-yml.md#environmentsnametypes)
 
@@ -216,6 +213,5 @@ When defining a service as `lagoon.type: custom`, you can tell Lagoon to not use
 
 This also expects the label `lagoon.template` to be defined with the path to the YAML file where you define all the needed Kubernetes objects to be executed. In here you can define your own OpenShift templates like the ones in the [templates folder of `oc-build-deploy-dind`](https://github.com/uselagoon/lagoon/tree/main/images/oc-build-deploy-dind/openshift-templates).
 
-{% hint style="info" %}
+{: .note .info}
 The template is called with `oc process`, so you should define the same parameters as in the default templates.
-{% endhint %}

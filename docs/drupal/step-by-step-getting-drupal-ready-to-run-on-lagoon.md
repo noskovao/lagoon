@@ -113,11 +113,11 @@ Drupal root          :  /app/web
 Site path            :  sites/default
 ```
 
-{% hint style="warning" %}
+{: .note .warning}
 You may have to tell pygmy about your public key before the next step.
 
 If you get an error like `Permission denied (publickey)`, check out the documentation here: [pygmy - adding ssh keys](https://docs.lagoon.sh/pygmy/ssh-agent)
-{% endhint %}
+
 
 Now it is time to install Drupal \(if instead you would like to import an existing SQL file, please [skip to step 7](step-by-step-getting-drupal-ready-to-run-on-lagoon.md#7-import-existing-database-dump), but we suggest you start with a clean Drupal installation in the beginning to be sure everything works\).
 
