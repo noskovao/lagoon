@@ -2,7 +2,7 @@
 
 We gladly welcome any and all contributions to Lagoon!
 
-### What kind of contributions do we need? Examples!
+## What kind of contributions do we need? Examples!
 
 Right now one of our biggest needs is putting together examples of Lagoon working with various content management systems, etc, other than Drupal.
 
@@ -22,9 +22,8 @@ If you have any questions, reach out to us on RocketChat!
 
 We take security very seriously. If you discover a security issue or think you found one, please bring it to the maintainers' attention.
 
-{% hint style="danger" %}
+{: .note .warning}
 Please send your findings to [hello@amazee.io](mailto:hello@amazee.io). Please **DO NOT** file a GitHub issue for them.
-
 
 Security reports are greatly appreciated and will receive public karma and swag! We're also working on a Bug Bounty system.
 

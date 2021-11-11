@@ -17,7 +17,6 @@ description: >-
 {: .note .info}
 We acknowledge that this is a lot of steps, and our roadmap for the immediate future includes reducing the number of steps in this process. 
 
-
 ## **Install Lagoon Core**
 
 1. Add Lagoon Charts repository to your Helm: 
@@ -47,12 +46,10 @@ We acknowledge that this is a lot of steps, and our roadmap for the immediate fu
       3. Retrieve the secret: `kubectl -n lagoon-core get secret lagoon-core-keycloak -o jsonpath="{.data.KEYCLOAK_LAGOON_ADMIN_PASSWORD}" | base64 --decode`
 
 {: .note .warning}
-Note: Sometimes we run into Docker Hub pull limits. We are considering moving our images elsewhere if this continues to be a problem. 
-
+Note: Sometimes we run into Docker Hub pull limits. We are considering moving our images elsewhere if this continues to be a problem.
 
 {: .note .info}
-Note: Currently Lagoon only supports one Lagoon per cluster - meaning you can’t currently split your dev/test/prod environments across separate clusters, but this is something we are looking to implement in the future. 
-
+Note: Currently Lagoon only supports one Lagoon per cluster - meaning you can’t currently split your dev/test/prod environments across separate clusters, but this is something we are looking to implement in the future.
 
 ## **Install the Lagoon CLI**
 
@@ -68,7 +65,7 @@ Note: Currently Lagoon only supports one Lagoon per cluster - meaning you can’
    1. In the Lagoon UI \(the URL is in `values.yml` if you forget\), go to **Settings**.
    2. Add your public SSH key.
    3. You need to set the default Lagoon to _your_ Lagoon so that it doesn’t try to use the amazee.io defaults:
-      1.  `lagoon config default --lagoon <YOUR-LAGOON-NAME>`
+      1. `lagoon config default --lagoon <YOUR-LAGOON-NAME>`
 4. Now run `lagoon login`
    1. How the system works: 
       1. Lagoon talks to SSH and authenticates against your public/private key pair, and gets a token for your username.
@@ -76,7 +73,6 @@ Note: Currently Lagoon only supports one Lagoon per cluster - meaning you can’
 
 {: .note .info}
 Note: We don’t generally recommend using the Lagoon Admin role, but you’ll need to create an admin account at first to get started. Ideally, you’ll immediately create another account to work from which is _not_ an admin.
-
 
 ## Create Lagoon user
 
@@ -131,7 +127,6 @@ Note: We don’t generally recommend using the Lagoon Admin role, but you’ll n
 
 {: .note .info}
 Note: Currently we only allow for one Harbor instance per Lagoon Core. This can be less than ideal, depending on the project, so we are currently working to implement a solution where users will be able to have a Harbor instance for each Lagoon Remote. 
-
 
 ## Install Lagoon Remote
 
@@ -207,7 +202,7 @@ dbaas-operator:
          }
       ```
 
-   1. [Read more about GraphQL here in our documentation. ](graphql.md)
+   1. [Read more about GraphQL here in our documentation.](graphql.md)
 
 6. Once you get the correct response, we need to add a mutation.
    1. Run the following query:
@@ -229,7 +224,6 @@ dbaas-operator:
 
 {: .note .info}
 Note: Authorization tokens for GraphQL are very short term so you may need to generate a new one. Run `lagoon login` and then cat the `.lagoon.yml` file to get the new token, and replace the old token in the HTTP header with the new one. 
-
 
 ## Add a Project
 

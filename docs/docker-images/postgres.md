@@ -13,4 +13,3 @@ If you have SQL statements that need to be run immediately after container start
 
 {: .note .info}
 Take note that these scripts are only run if the container is started with an empty database.
-

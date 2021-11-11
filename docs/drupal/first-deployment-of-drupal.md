@@ -12,7 +12,7 @@ description: >-
 
 In order to make your first deployment a successful one, please make sure that your [Drupal Project is Lagoonized](../using-lagoon-the-basics/setup_project.md) and you have set up the project in Lagoon. If not, don't worry! Follow the [Step-by-Step Guide](step-by-step-getting-drupal-ready-to-run-on-lagoon.md) which show you how this works.
 
-## 2. Push!
+## 2. Push
 
 With Lagoon, you create a new deployment by pushing into a branch that is configured to be deployed.
 
@@ -124,7 +124,7 @@ Do you really want to continue? (y/n):
 
 The reason for that is that the Drupal cannot resolve the path of the files directory. This most probably has to do that the Drupal is not fully configured or has a missing database. For a workaround you can use `drush rsync @self:sites/default/files @develop:sites/default/files`, but we suggest that you actually check your local and remote Drupal \(you can test with `drush status` to see if the files directory is correctly configured\).
 
-## 6. It's done!
+## 6. It's done
 
 As soon as Lagoon is done building and deploying it will send a second notification to the chat system, like so:
 

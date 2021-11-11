@@ -6,9 +6,8 @@ Want to hack Lagoon? Yay 🎉! That's how we all started. At Lagoon we take prid
 
 We take security very seriously. If you discover a security issue or think you found one, please bring it to the maintainers' attention.
 
-{% hint style="danger" %}
+{: .note .warning}
 Please send your findings to [hello@amazee.io](mailto:hello@amazee.io). Please **DO NOT** file a GitHub issue for them.
-
 
 Security reports are greatly appreciated and will receive public karma and swag! We're also working on a Bug Bounty system.
 
@@ -25,4 +24,3 @@ Another good way is also to talk to us via RocketChat about your idea. [Join tod
 ## I wrote some code
 
 Epic! Please send us a pull request for it, we will do our best to review it and merge it if possible.
-

@@ -7,7 +7,6 @@
 * You are using a standard Amazee/Lagoon project with a [`docker-compose.yml`](../using-lagoon-the-basics/docker-compose-yml.md) file. 
 * You are on a Mac - it should work for other operating systems but folder structure and some configuration settings may be different.
 
-
 ## Configuring the project
 
 1. Duplicate\* the `/core/phpunit.xml.dist` file to `/core/phpunit.xml`
@@ -59,7 +58,7 @@
 
 ![Add Remote Interpreter](../.gitbook/assets/3-remote-interpreter-setup.png)
 
-#### Setup/Configure Runner Template <a id="Drupal:PHPUnitandPhpStorm-Setup/ConfigureRunnerTemplate"></a>
+#### Setup/Configure Runner Template
 
 1. **Configure runner:**
    1. In PhpStorm, go to **Run &gt; Edit Configurations... &gt; Templates &gt; PHPUnit**

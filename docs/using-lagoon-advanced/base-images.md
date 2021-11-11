@@ -155,7 +155,6 @@ git clone ssh://git@bitbucket.biscrum.com:7999/webpro/drupal8_base_image.git
 {: .note .info}
 **Note:** What is demonstrated here is specific to the Drupal 8 base image. However, any changes \(adding files, changing base Docker images, etc.\) will be done in this step for all of the base images.
 
-
 In our example, we are adding the ClamAV module to the Drupal 8 base image. This involves a few steps. The first is requiring the package so that it gets added to our `composer.json` file. This is done by running a `composer require`.
 
 Here we run:
@@ -201,7 +200,6 @@ drush pm-enable lagoon_bundle -y
 {: .note .warning}
 **Note:** You’ll see that there is a JWT error in the container above. You can safely ignore this in the demonstration above - but, for background, you will see this error when there is no Lagoon environment for the site you’re working on.
 
-
 With our testing done, we can now tag and build the images.
 
 **Step 3 - Tagging images**
@@ -221,17 +219,15 @@ We check that we have committed \(but not pushed\) our changes, just as you woul
 4. Next, we push our tags with `git push --tags`.
 5. And finally, push all of our changes with `git push`.
 
-{% hint style="danger" %}
+{: .note .warning}
 **Note:** The tags must be pushed explicitly in their own step!
-
 
 ![Demonstrating how to tag and push a base image.](../.gitbook/assets/6%20%282%29%20%282%29.gif)
 
 #### How Git tags map to image tags
 
-{% hint style="danger" %}
+{: .note .warning}
 **Important note:** Depending on the build workflow, you will almost certainly push the changes via the **develop** branch before merging it into the **main** branch.
-
 
 An important point to remember here is that the Jenkins base image build process will tag _images_ based on the _most recent commit’s tag_.
 
@@ -242,11 +238,10 @@ Images are tagged using the following rules, and images will be built for each o
 3. If the commit being built is _tagged_ then that branch will be built with that commit’s tag.
    1. This is how we release a new version as we demonstrated above. It can also be used to make ad hoc builds with fairly arbitrary tags - be reasonable with the tag names, it has only been tested with _semver_ tags.
 
-#### Step 4 - Building the new base images.
+#### Step 4 - Building the new base images
 
 {: .note .info}
 **Note:** Generally you will have a trigger strategy set up here for automatic builds, but as that will differ based on your needs and setup, this explains how to build manually.
-
 
 1. Visit your Lagoon Jenkins instance.
 2. Select the project you are working on \(in this case, AIOBI Drupal 8 Base\).

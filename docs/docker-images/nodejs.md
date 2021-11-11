@@ -11,7 +11,6 @@ The [Lagoon `node` Docker image](https://github.com/uselagoon/lagoon-images/tree
 {: .note .info}
 We stop updating EOL Node.js images usually with the Lagoon release that comes after the officially communicated EOL date: [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/).
 
-
 ## Lagoon adaptions
 
 We ship 2 versions of Node.js images: the normal `node:version` image and the `node:version-builder`.

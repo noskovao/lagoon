@@ -11,7 +11,6 @@ The [Lagoon `php-fpm` Docker image](https://github.com/uselagoon/lagoon-images/b
 {: .note .info}
 This Dockerfile is intended to be used as a base for any `PHP` needs within Lagoon. This image itself does not create a web server, rather a `php-fpm` fastcgi listener. You may need to adapt the `php-fpm` pool config.
 
-
 ## Supported versions
 
 * 5.6 \(available for compatibility, no longer officially supported\)
@@ -26,7 +25,6 @@ All PHP versions use their own Dockerfiles.
 {: .note .info}
 We stop updating End of Life \(EOL\) PHP images usually with the Lagoon release that comes after the officially communicated EOL date: [https://www.php.net/supported-versions.php](https://www.php.net/supported-versions.php).
 
-
 ## Lagoon adaptions
 
 This image is prepared to be used on Lagoon. There are therefore some things are already done:
@@ -36,7 +34,7 @@ This image is prepared to be used on Lagoon. There are therefore some things are
 * See the [Dockerfile](https://github.com/uselagoon/lagoon-images/blob/main/images/php-fpm/7.4.Dockerfile) for installed `PHP` extensions.
 * To install further extensions, extend your Dockerfile from this image. Install extensions according to the docs, under the heading [How to install more PHP extensions.](https://github.com/docker-library/docs/blob/master/php/README.md#how-to-install-more-php-extensions)
 
-## Included PHP config.
+## Included PHP config
 
 The included `PHP` config contains sensible values that will make the creation of `PHP` pools config easier. Here is a list of some of these. Check `/usr/local/etc/php.ini`, `/usr/local/etc/php-fpm.conf` for all of them:
 

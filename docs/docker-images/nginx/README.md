@@ -30,7 +30,6 @@ In order to create redirects, we have `redirects-map.conf` in place. This helps 
 {: .note .info}
 If you only have a few redirects, there's a handy trick to create the redirects with a `RUN` command in your `nginx.dockerfile`.
 
-
 Here's an example showing how to redirect `www.example.com` to `example.com` and preserve the request:
 
 ```bash

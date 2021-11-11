@@ -3,7 +3,6 @@
 {: .note .info}
 Note: amazee.io's base images are currently using Xdebug v2, and will be upgraded soon. You can [keep track on this issue](https://github.com/uselagoon/lagoon-images/issues/40). 
 
-
 ## Enable Xdebug Extension
 
 Base images provided by amazee.io are pre-configured to include `Xdebug`. For performance reasons, the extension is not installed by default. To install Xdebug, set the environment variable `XDEBUG_ENABLE` to any string.

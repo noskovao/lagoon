@@ -222,7 +222,6 @@ Now for every deployment you will receive messages in your defined channel.
 {: .note .info}
 In Lagoon 1.x `addOpenshift` is used for both OpenShift and Kubernetes targets. In Lagoon 2.x this will change.
 
-
 The OpenShift cluster to which Lagoon should deploy. Lagoon is not only capable of deploying to its own OpenShift, but also to any OpenShift anywhere in the world.
 
 ```graphql

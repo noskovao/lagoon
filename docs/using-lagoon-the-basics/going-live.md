@@ -41,7 +41,6 @@ environments:
 {: .note .info}
 As checking every page of your website might be a bit a tedious job, you can make use of [mixed-content-scan](https://github.com/bramus/mixed-content-scan). This will crawl the entire site and give you back pages that include assets from a non-HTTPS site.
 
-
 ### Redirects
 
 If you need non-www to www redirects, make sure you have them set up in the `redirects-map.conf` - [see Documentation](../docker-images/nginx/#redirects-map-conf).
@@ -60,7 +59,6 @@ Before you switch over your domain to Lagoon, make sure you lower the Time-to-Li
 
 {: .note .info}
 We do not suggest configuring any static IP addresses in your DNS zones. The Lagoon load balancer infrastructure may change over time which can have impact on your site availability if you configure a static IP address.
-
 
 ### Root Domains
 

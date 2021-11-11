@@ -224,13 +224,12 @@ Environment names match your deployed branches or pull requests. This allows for
 
 ### `environments.[name].monitoring_urls`
 
-{% hint style="danger" %}
+{: .note .warning}
 This feature will be removed in an upcoming release of Lagoon. Please use the newer `monitoring-path` method on your specific route.
 
 
 {: .note .info}
 Please note, Lagoon does not provide any direct integration to a monitoring service, this just adds the URLs to the API. On amazee.io, we take the `monitoring_urls` and add them to our StatusCake account.
-
 
 At the end of a deploy, Lagoon will check this field for any URLs which you have specified to add to the API for the purpose of monitoring. The default value for this field is the first route for a project. It is useful for adding specific paths of a project to the API, for consumption by a monitoring service.
 
@@ -256,7 +255,6 @@ In the `"www.example.com"` example repeated below, we see two more options \(als
 {: .note .info}
 If you plan to switch from a SSL certificate signed by a Certificate Authority \(CA\) to a Let's Encrypt certificate, it's best to get in touch with your Lagoon administrator to oversee the transition. There are [known issues](https://github.com/tnozicka/openshift-acme/issues/68) during the transition. The workaround would be manually removing the CA certificate and then triggering the Let's Encrypt process.
 
-
 ```yaml
      - "www.example.com":
             tls-acme: 'true'
@@ -277,7 +275,6 @@ When [UptimeRobot](https://uptimerobot.com/) is configured for your cluster \(Op
 
 {: .note .info}
 Route/Ingress annotations are only supported by projects that deploy into clusters that run nginx-ingress controllers! Check with your Lagoon administrator if this is supported.
-
 
 * `annotations` can be a yaml map of [annotations supported by the nginx-ingress controller](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/), this is specifically useful for easy redirects and other configurations
 
@@ -437,14 +434,12 @@ example-project-name:
 {: .note .info}
 If you run directly on amazee.io you will not need this key set.
 
-
 With the key `api` you can define another URL that should be used by the Lagoon CLI and `drush` to connect to the Lagoon GraphQL API. This needs to be a full URL with a scheme, like: `http://localhost:3000` This usually does not need to be changed, but there might be situations where your Lagoon administrator tells you to do so.
 
 ### `ssh`
 
 {: .note .info}
 If you run directly on amazee.io you will not need this key set.
-
 
 With the key `ssh` you can define another SSH endpoint that should be used by the Lagoon CLI and `drush` to connect to the Lagoon remote shell service. This needs to be a hostname and a port separated by a colon, like: `localhost:2020` This usually does not need to be changed, but there might be situations where your Lagoon administrator tells you to do so.
 

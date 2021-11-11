@@ -10,7 +10,6 @@ Even though Lagoon has only a hard dependency on Docker and [Docker Compose](htt
 {: .note .warning}
 You do not need to _install_ Lagoon locally to _use_ it locally! That sounds confusing but follow the documentation. Lagoon is the system that **deploys** your local development environment to your production environment, it's **not** the environment itself.
 
-
 ## pygmy or Lando - the choice is yours
 
 Lagoon has traditionally worked best with `pygmy` , which is the amazee.io flavored system of the above tools and works out of the box with Lagoon. It lives at [https://github.com/amazeeio/pygmy](https://github.com/amazeeio/pygmy)

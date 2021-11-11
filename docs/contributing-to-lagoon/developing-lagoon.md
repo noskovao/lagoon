@@ -20,13 +20,12 @@ You will need to update your insecure registries in Docker. [Read the instructio
 
 Running a Lagoon, Kubernetes, or Docker cluster on your local machine consumes a lot of resources. We recommend that you give your Docker host a minimum of 8 CPU cores and 12GB RAM.
 
-## Build Lagoon Locally
+### Build Lagoon Locally
 
 {: .note .warning}
 Only consider building Lagoon this way if you intend to develop features or functionality for it, or want to debug internal processes. We will also be providing instruction to install Lagoon without building it \(i.e. by using the published releases\).
 
 We're using `make` \(see the [Makefile](https://github.com/uselagoon/lagoon/blob/main/Makefile)\) in order to build the needed Docker images, configure Kubernetes and run tests.
-
 
 We have provided a number of routines in the [Makefile](https://github.com/uselagoon/lagoon/blob/main/Makefile) to cover most local development scenarios. Here we will run through a complete process.
 
@@ -47,7 +46,6 @@ We have provided a number of routines in the [Makefile](https://github.com/usela
 
 {: .note .warning}
 There are a lot of tests configured to run by default - please consider only testing locally the minimum that you need to ensure functionality. This can be done by specifying or removing tests from the `TESTS` variable in the Makefile.
-
 
 This process will:
 
@@ -186,7 +184,7 @@ The services not only share many Node.js packages, but also share actual custom 
 
 ## Troubleshooting
 
-#### ⚠ **I can't build a docker image for any Node.js based service**
+### I can't build a docker image for any Node.js based service
 
 Rebuild the images via:
 
@@ -195,11 +193,11 @@ make clean
 make build
 ```
 
-#### ⚠ **I get errors about missing `node_modules` content when I try to build / run a Node.js based image**
+### I get errors about missing `node_modules` content when I try to build / run a Node.js based image
 
 Make sure to run `yarn` in Lagoon's root directory, since some services have common dependencies managed by `yarn` workspaces.
 
-#### ⚠ **I get an error resolving the `nip.io` domains**
+### I get an error resolving the `nip.io` domains
 
 ```text
 Error response from daemon: Get https://registry.172.18.0.2.nip.io:32080/v2/: dial tcp: lookup registry.172.18.0.2.nip.io: no such host

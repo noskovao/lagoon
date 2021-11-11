@@ -9,7 +9,6 @@ The image also contains database `cli`s for both MariaDB and PostgreSQL.
 {: .note .info}
 This Dockerfile is intended to be used as a base for any `cli` needs within Lagoon.
 
-
 ## Supported versions
 
 * 5.6 \(available for compatibility, no longer officially supported\)

@@ -8,7 +8,6 @@ If you are an amazee.io customer, the route to the webhook-handler is: [`https:/
 {: .note .warning}
 Managing the following settings will require you to have a high level of access to these repositories, which will be controlled by your organization. If you cannot access these settings, please contact your systems administrator or the appropriate person within your organization .
 
-
 ## GitHub
 
 1. Proceed to Settings -&gt; Webhooks -&gt; `Add webhook` in your GitHub repository.
