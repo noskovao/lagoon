@@ -26,7 +26,7 @@ If you ever need to recover or restore a backup feel free to submit a ticket or 
 
 ## How can I download a database dump?
 
-{% embed url="https://www.youtube.com/watch?v=bluTyxKqLbw&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd&index=3" caption="" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bluTyxKqLbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## I'm getting an invalid SSL certificate error
 
@@ -58,7 +58,7 @@ Upgrading Drush should fix that for you. We strongly suggest that you use versio
 
 ## I'm seeing an Internal Server Error when trying to access my Kibana logs!
 
-{% embed url="https://www.youtube.com/watch?v=BuQo5J0Qc2c&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd&index=5" caption="" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BuQo5J0Qc2c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 No need to panic! This usually happens when a tenant has not been selected. To fix this, follow these steps:
 
@@ -77,15 +77,15 @@ This typically indicates an issue with Pygmy. You can find our troubleshooting d
 
 ## How can I check the status of a build
 
-{% embed url="https://www.youtube.com/watch?v=PyrlZqTjf68&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd" caption="" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PyrlZqTjf68" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## How do I add a cron job?
 
-{% embed url="https://www.youtube.com/watch?v=Yd\_JfDyfbR0&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd&index=2" caption="" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Yd_JfDyfbR0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## How do I add a new route?
 
-{% embed url="https://www.youtube.com/watch?v=vQxh87F3fW4&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd&index=4" caption="" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vQxh87F3fW4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## How do I remove a route?
 
@@ -121,7 +121,7 @@ You can make that change using the Lagoon API! You can find the documentation fo
 
 ## How do I add a redirect?
 
-{% embed url="https://www.youtube.com/watch?v=rWb-PkRDhY4&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd&index=6" caption="" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rWb-PkRDhY4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## How can I add new users \(and SSH keys\) to my project/group?
 

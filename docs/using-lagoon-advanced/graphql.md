@@ -79,7 +79,6 @@ Update the production environment within a project:
 {: .note .info}
 Important: This requires a redeploy in order for all changes to be reflected in the containers.
 
-
 ```graphql
 mutation editProjectProductionEnvironment {
   updateProject(input:{id:109, patch:{productionEnvironment:"prod"}}) {

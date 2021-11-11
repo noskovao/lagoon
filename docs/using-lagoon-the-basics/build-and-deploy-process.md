@@ -4,7 +4,7 @@ This document describes what actually happens during a Lagoon build and deployme
 
 Watch the video below for a walk-through of the deployment process.
 
-{% embed url="https://www.youtube.com/watch?v=XiaH7gqUXWc" caption="Lagoon Deployment Demo Video" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XiaH7gqUXWc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 1. Set up OpenShift Project/Kubernetes Namespace for Environment
 

@@ -2,7 +2,6 @@
 
 We recommend using [Redis](https://redis.io/) for internal caching. Add the Redis service to `docker-compose.yaml`.
 
-
 ```yaml
   redis:
     image: amazeeio/redis
@@ -17,8 +16,6 @@ Also, to configure Redis, add the following to your `settings.php`.
 
 ### Drupal 7
 
-{% tabs %}
-{% tab title="settings.php" %}
 ```php
 if(getenv('LAGOON')){
   $conf['redis_client_interface'] = 'PhpRedis';

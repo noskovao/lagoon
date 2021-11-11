@@ -4,7 +4,7 @@ description: Lagoon supports active/standby (also known as blue/green) deploymen
 
 # Active/Standby
 
-{% embed url="https://www.youtube.com/watch?v=urq15chLvzQ" caption="How to Run Blue-Green Deployments with Active/Standby on Lagoon" %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/urq15chLvzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Configuration
 
@@ -61,7 +61,6 @@ production_routes:
 
 {: .note .info}
 Any routes that are under the section `environments..routes` will not be moved as part of active/standby. These routes will always be attached to the environment as defined. Ensure that if you do need a specific route to be migrated during an active/standby switch, that you remove them from the environments section and place them under the `production_routes` section specific to if it should be an active or standby route. [See more about routes in `.lagoon.yml`.](../using-lagoon-the-basics/lagoon-yml.md#routes)
-
 
 ## Triggering a switch event
 

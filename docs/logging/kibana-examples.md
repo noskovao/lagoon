@@ -7,7 +7,6 @@ Ready to get started? Good!
 {: .note .info}
 Make sure that you have selected your tenant before starting! You can do that by on the `Tenant` icon on the left-hand menu. Once you have selected your tenant, click on the `Discover` icon again to get started.
 
-
 ## Router Logs
 
 Below you'll find examples for two common log requests:
@@ -90,7 +89,6 @@ Kibana will also give you the option to create visualizations or graphs. We are 
 {: .note .info}
 Make sure that you select an appropriate time frame for the data in the upper right hand corner.
 
-
 Here is an example of a daily hits visualization chart:
 
 ![Daily hits visualization chart.](../.gitbook/assets/kibana_example5%20%282%29%20%282%29%20%282%29.png)
@@ -99,4 +97,4 @@ Also note that you can save your visualizations \(and searches\)! That will make
 
 ## Troubleshooting
 
-{% embed url="https://www.youtube.com/watch?v=BuQo5J0Qc2c&list=PLOM3iGqJj\_UdTtl4eVDszI9VgGW9Dcefd&index=5" caption="" %}
+{<iframe width="560" height="315" src="https://www.youtube.com/embed/BuQo5J0Qc2c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
