@@ -1,0 +1,18 @@
+I"$<h1 id="backups">Backups</h1>
+
+<h2 id="short-term-backups">Short-Term Backups</h2>
+
+<p>These backups are provided by Lagoon itself, and are implemented for databases <strong>only</strong>. Lagoon will automatically instruct the <code class="language-plaintext highlighter-rouge">MariaDB</code> and <code class="language-plaintext highlighter-rouge">Postgres</code> <a href="service-types.md">services types</a> to set up a cron job which creates backups once a day (see example <a href="https://github.com/uselagoon/lagoon-images/blob/main/images/mariadb/mysql-backup.sh">backup script</a> for MariaDB). These backups are kept for four days and automatically cleaned up after that.</p>
+
+<p>These backups are accessible for developers directly by connecting via the <a href="remote-shell.md">remote shell</a> to the corresponding container (like <code class="language-plaintext highlighter-rouge">mariadb</code>) and checking the <a href="https://github.com/uselagoon/lagoon-images/blob/main/images/mariadb/mysql-backup.sh#L24">folder</a> where the backups are stored). They can then be downloaded, extracted, or used in any other way.</p>
+
+<h2 id="mid-term-backups">Mid-Term Backups</h2>
+
+<p>Mid-term backups are not automatically provided by Lagoon and depend heavily on the underlying infrastructure where Kubernetes and OpenShift are running. Check with your Lagoon administrator what backups are created on your infrastructure.</p>
+
+<p><strong>For amazee.io infrastructure</strong>: All persistent storage and Docker images are backed up daily for a week, and weekly for a month. If you need access to such a backup, check with the support team, they will help you.</p>
+
+<h2 id="long-term-backups">Long-Term Backups</h2>
+
+<p>Long-term backups refer to backups that are kept for multiple months and years. <a href="https://aws.amazon.com/glacier/">AWS Glacier</a> is often used to store these backups. These types of backups also depend heavily on the underlying infrastructure. Check with your Lagoon administrator to find out what backups are created on your infrastructure.</p>
+:ET

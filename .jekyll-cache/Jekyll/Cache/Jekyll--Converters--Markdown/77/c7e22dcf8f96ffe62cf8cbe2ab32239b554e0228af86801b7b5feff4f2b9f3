@@ -1,0 +1,63 @@
+I"m<h1 id="drush-9">Drush 9</h1>
+
+<h2 id="aliases">Aliases</h2>
+
+<p>Unfortunately, Drush 9 does not provide the ability to inject dynamic site aliases like Drush 8 did. We are working with the Drush team to implement this again. In the meantime, we have a workaround that allows you to use Drush 9 with Lagoon.</p>
+
+<h3 id="basic-idea">Basic Idea</h3>
+
+<p>Drush 9 provides a new command, <code class="language-plaintext highlighter-rouge">drush site:alias-convert</code> , which can convert Drush 8-style site aliases over to the Drush 9 YAML site alias style. This will create a on- time export of the site aliases currently existing in Lagoon, and save them in <code class="language-plaintext highlighter-rouge">/app/drush/sites</code> . These are then used when running a command like <code class="language-plaintext highlighter-rouge">drush sa</code>.</p>
+
+<h3 id="preparation">Preparation</h3>
+
+<p>In order to be able to use <code class="language-plaintext highlighter-rouge">drush site:alias-convert</code> , you need to do the following:</p>
+
+<ul>
+  <li>Rename the <code class="language-plaintext highlighter-rouge">aliases.drushrc.php</code> inside the <code class="language-plaintext highlighter-rouge">drush</code> folder to <code class="language-plaintext highlighter-rouge">lagoon.aliases.drushrc.php</code>.</li>
+</ul>
+
+<h3 id="generate-site-aliases">Generate Site Aliases</h3>
+
+<p>You can now convert your Drush aliases by running the following command in your project using the <code class="language-plaintext highlighter-rouge">cli</code> container:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose exec cli drush site:alias-convert /app/drush/sites --yes
+</code></pre></div></div>
+
+<p>It’s good practice to commit the resulting YAML files into your Git repository, so that they are in place for your fellow developers.</p>
+
+<h3 id="use-site-aliases">Use Site Aliases</h3>
+
+<p>In Drush 9, all site aliases are prefixed with a group. In our case, this is <code class="language-plaintext highlighter-rouge">lagoon</code>. You can show all site aliases with their prefix via:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush sa --format=list
+</code></pre></div></div>
+
+<p>and to use them:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush @lagoon.main ssh
+</code></pre></div></div>
+
+<h3 id="update-site-aliases">Update Site Aliases</h3>
+
+<p>If a new environment in Lagoon has been created, you can run <code class="language-plaintext highlighter-rouge">drush site:alias-convert</code> to update the site aliases file. If running this command does not update <code class="language-plaintext highlighter-rouge">lagoon.site.yml</code>, try deleting <code class="language-plaintext highlighter-rouge">lagoon.site.yml</code> first, and then re-run <code class="language-plaintext highlighter-rouge">drush site:alias-convert</code>.</p>
+
+<h3 id="drush-rsync-from-local-to-remote-environments">Drush <code class="language-plaintext highlighter-rouge">rsync</code> from local to remote environments</h3>
+
+<p>If you would like to sync files from a local environment to a remote environment, you need to pass additional parameters:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush rsync @self:%files @lagoon.main:%files -- --omit-dir-times --no-perms --no-group --no-owner --chmod=ugo=rwX
+</code></pre></div></div>
+
+<p>This also applies to syncing one remote environment to another, if you’re not using the Lagoon tasks UI to copy files between environments.</p>
+
+<p>For example, if you wanted to sync the files from <code class="language-plaintext highlighter-rouge">@lagoon.main</code> to <code class="language-plaintext highlighter-rouge">@lagoon.dev</code> , and ran <code class="language-plaintext highlighter-rouge">drush rsync @lagoon.main @lagoon.dev</code> locally, without the extra parameters, you would probably run into a “Cannot specify two remote aliases” error.</p>
+
+<p>To resolve this, you would first need to SSH into your destination environment <code class="language-plaintext highlighter-rouge">drush @lagoon.dev ssh</code>, and then execute the <code class="language-plaintext highlighter-rouge">rsync</code> command with parameters similar to the above:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush rsync @lagoon.main:%files  @self:%files -- --omit-dir-times --no-perms --no-group --no-owner --chmod=ugo=rwX
+</code></pre></div></div>
+
+<p>This is not necessary if you <code class="language-plaintext highlighter-rouge">rsync</code> from a remote to a local environment.</p>
+
+<p>Also, we’re <a href="https://github.com/drush-ops/drush/issues/3491">working with the Drush maintainers</a> to find a way to inject this automatically.</p>
+:ET

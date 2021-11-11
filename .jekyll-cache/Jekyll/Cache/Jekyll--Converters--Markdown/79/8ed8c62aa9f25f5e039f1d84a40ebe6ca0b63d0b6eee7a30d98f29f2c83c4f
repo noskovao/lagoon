@@ -1,0 +1,170 @@
+I"�=<h1 id="activestandby">Active/Standby</h1>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/urq15chLvzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>To change an existing project to support active/standby you’ll need to configure some project settings with the Lagoon API.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">productionEnviromment</code> should be set to the branch name of the current active environment.</li>
+  <li><code class="language-plaintext highlighter-rouge">standbyProductionEnvironment</code> should be set to the branch name of the current environment that is in standby.</li>
+</ul>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mutation</span><span class="w"> </span><span class="n">updateProject</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">updateProject</span><span class="p">(</span><span class="n">input</span><span class="p">:{</span><span class="w">
+    </span><span class="n">id</span><span class="p">:</span><span class="mi">1234</span><span class="w">
+    </span><span class="n">patch</span><span class="p">:{</span><span class="w">
+      </span><span class="n">productionEnvironment</span><span class="p">:</span><span class="s2">"production-brancha"</span><span class="w">
+      </span><span class="n">standbyProductionEnvironment</span><span class="p">:</span><span class="s2">"production-branchb"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}){</span><span class="w">
+    </span><span class="n">standbyProductionEnvironment</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">productionEnvironment</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="lagoonyml---production_routes"><code class="language-plaintext highlighter-rouge">.lagoon.yml</code> - <code class="language-plaintext highlighter-rouge">production_routes</code></h3>
+
+<p>To configure a project for active/standby in the <code class="language-plaintext highlighter-rouge">.lagoon.yml</code> file, you’ll need to configure the <code class="language-plaintext highlighter-rouge">production_routes</code> section with any routes you want to attach to the <code class="language-plaintext highlighter-rouge">active</code> environment, and any routes to the <code class="language-plaintext highlighter-rouge">standby</code> environment. During an active/standby switch, these routes will migrate between the two environments.</p>
+
+<p>If you have two production environments, <code class="language-plaintext highlighter-rouge">production-brancha</code> and <code class="language-plaintext highlighter-rouge">production-branchb</code>, with the current active production environment as <code class="language-plaintext highlighter-rouge">production-brancha</code> then:</p>
+
+<ul>
+  <li>Routes under <code class="language-plaintext highlighter-rouge">production_routes.active</code> will direct you to <code class="language-plaintext highlighter-rouge">production-brancha</code>.</li>
+  <li>Routes under <code class="language-plaintext highlighter-rouge">production_routes.standby</code> will direct you to <code class="language-plaintext highlighter-rouge">production-branchb</code>.</li>
+</ul>
+
+<p>During an active/standby switch, the routes will swap:</p>
+
+<ul>
+  <li>Routes under <code class="language-plaintext highlighter-rouge">production_routes.active</code> will direct you to <code class="language-plaintext highlighter-rouge">production-branchb</code>.</li>
+  <li>Routes under <code class="language-plaintext highlighter-rouge">production_routes.standby</code> will direct you to <code class="language-plaintext highlighter-rouge">production-brancha</code>.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">production_routes</span><span class="pi">:</span>
+  <span class="na">active</span><span class="pi">:</span>
+    <span class="na">routes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">nginx</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">example.com</span><span class="pi">:</span>
+            <span class="na">tls-acme</span><span class="pi">:</span> <span class="s1">'</span><span class="s">false'</span>
+        <span class="pi">-</span> <span class="na">active.example.com</span><span class="pi">:</span>
+            <span class="na">tls-acme</span><span class="pi">:</span> <span class="s1">'</span><span class="s">false'</span>
+  <span class="na">standby</span><span class="pi">:</span>
+    <span class="na">routes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">nginx</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">standby.example.com</span><span class="pi">:</span>
+            <span class="na">tls-acme</span><span class="pi">:</span> <span class="s1">'</span><span class="s">false'</span>
+</code></pre></div></div>
+
+<p class="note info">Any routes that are under the section <code class="language-plaintext highlighter-rouge">environments..routes</code> will not be moved as part of active/standby. These routes will always be attached to the environment as defined. Ensure that if you do need a specific route to be migrated during an active/standby switch, that you remove them from the environments section and place them under the <code class="language-plaintext highlighter-rouge">production_routes</code> section specific to if it should be an active or standby route. <a href="../using-lagoon-the-basics/lagoon-yml.md#routes">See more about routes in <code class="language-plaintext highlighter-rouge">.lagoon.yml</code>.</a></p>
+
+<h2 id="triggering-a-switch-event">Triggering a switch event</h2>
+
+<h3 id="via-the-ui">via the UI</h3>
+
+<p>To trigger the switching of environment routes, you can visit the standby environment in the Lagoon UI and click on the button labeled <code class="language-plaintext highlighter-rouge">Switch Active/Standby environments</code>. You will be prompted to confirm your action.</p>
+
+<p>Once confirmed, it will take you to the tasks page where you can view the progress of the switch.</p>
+
+<h3 id="via-the-api">via the API</h3>
+
+<p>To trigger an event to switch the environments, run the following graphQL mutation. This will tell Lagoon to begin the process.</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mutation</span><span class="w"> </span><span class="n">ActiveStandby</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">switchActiveStandby</span><span class="p">(</span><span class="w">
+    </span><span class="n">input</span><span class="p">:{</span><span class="w">
+      </span><span class="n">project</span><span class="p">:{</span><span class="w">
+        </span><span class="n">name</span><span class="p">:</span><span class="s2">"drupal-example"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">){</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">remoteId</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A task is created in the current active environment <code class="language-plaintext highlighter-rouge">tasks</code> tab when a switch event is triggered. You can check the status of the switch here.</p>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">remoteId</code> from the <code class="language-plaintext highlighter-rouge">switchActiveStandby</code> mutation, we can also check the status of the task.</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">getTask</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">taskByRemoteId</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;remoteId&gt;"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">created</span><span class="w">
+    </span><span class="n">started</span><span class="w">
+    </span><span class="n">completed</span><span class="w">
+    </span><span class="n">status</span><span class="w">
+    </span><span class="n">logs</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="drush-aliases"><code class="language-plaintext highlighter-rouge">drush</code> aliases</h2>
+
+<p>By default, projects will be created with the following aliases that will be available when active/standby is enabled on a project.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">lagoon-production</code></li>
+  <li><code class="language-plaintext highlighter-rouge">lagoon-standby</code></li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">lagoon-production</code> alias will point to whichever site is defined as <code class="language-plaintext highlighter-rouge">productionEnvironment</code>, and <code class="language-plaintext highlighter-rouge">lagoon-standby</code> will always point to the site that is defined as <code class="language-plaintext highlighter-rouge">standbyProductionEnvironment</code>.</p>
+
+<p>These aliases are configurable by updating the project. Be aware that changing them may require you to update any scripts that rely on them.</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mutation</span><span class="w"> </span><span class="n">updateProject</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">updateProject</span><span class="p">(</span><span class="n">input</span><span class="p">:{</span><span class="w">
+    </span><span class="n">id</span><span class="p">:</span><span class="mi">1234</span><span class="w">
+    </span><span class="n">patch</span><span class="p">:{</span><span class="w">
+      </span><span class="n">productionAlias</span><span class="p">:</span><span class="s2">"custom-lagoon-production-alias"</span><span class="w">
+      </span><span class="n">standbyAlias</span><span class="p">:</span><span class="s2">"custom-lagoon-standby-alias"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}){</span><span class="w">
+    </span><span class="n">productionAlias</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">standbyAlias</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="notes">Notes</h2>
+
+<p>When the active/standby trigger has been executed, the <code class="language-plaintext highlighter-rouge">productionEnvironment</code> and <code class="language-plaintext highlighter-rouge">standbyProductionEnvironments</code> will switch within the Lagoon API. Both environments are still classed as <code class="language-plaintext highlighter-rouge">production</code> environment types. We use the <code class="language-plaintext highlighter-rouge">productionEnvironment</code> to determine which one is labelled as <code class="language-plaintext highlighter-rouge">active</code>. For more information on the differences between environment types, read the <a href="environment-types.md">documentation for <code class="language-plaintext highlighter-rouge">environment types</code></a></p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">projectByName</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">projectByName</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="s2">"drupal-example"</span><span class="p">){</span><span class="w">
+    </span><span class="n">productionEnvironment</span><span class="w">
+    </span><span class="n">standbyProductionEnvironment</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Before switching environments:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="err">"</span><span class="n">data</span><span class="err">":</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">"</span><span class="n">projectByName</span><span class="err">":</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">"</span><span class="n">productionEnvironment</span><span class="err">":</span><span class="w"> </span><span class="err">"</span><span class="n">production</span><span class="err">-</span><span class="n">brancha</span><span class="err">"</span><span class="p">,</span><span class="w">
+      </span><span class="err">"</span><span class="n">standbyProductionEnvironment</span><span class="err">":</span><span class="w"> </span><span class="err">"</span><span class="n">production</span><span class="err">-</span><span class="n">branchb</span><span class="err">"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After switching environments:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="err">"</span><span class="n">data</span><span class="err">":</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">"</span><span class="n">projectByName</span><span class="err">":</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="err">"</span><span class="n">productionEnvironment</span><span class="err">":</span><span class="w"> </span><span class="err">"</span><span class="n">production</span><span class="err">-</span><span class="n">branchb</span><span class="err">"</span><span class="p">,</span><span class="w">
+      </span><span class="err">"</span><span class="n">standbyProductionEnvironment</span><span class="err">":</span><span class="w"> </span><span class="err">"</span><span class="n">production</span><span class="err">-</span><span class="n">brancha</span><span class="err">"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+:ET

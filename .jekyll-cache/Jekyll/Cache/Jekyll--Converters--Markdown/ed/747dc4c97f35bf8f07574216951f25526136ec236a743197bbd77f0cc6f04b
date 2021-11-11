@@ -1,0 +1,139 @@
+I"D$<h1 id="first-deployment-of-drupal">First Deployment of Drupal</h1>
+
+<p><img src="https://i.giphy.com/media/7kVRZwYRwF1ok/giphy-downsized.gif" alt="excited" /></p>
+
+<h2 id="1-make-sure-you-are-all-set">1. Make sure you are all set</h2>
+
+<p>In order to make your first deployment a successful one, please make sure that your <a href="../using-lagoon-the-basics/setup_project.md">Drupal Project is Lagoonized</a> and you have set up the project in Lagoon. If not, don’t worry! Follow the <a href="step-by-step-getting-drupal-ready-to-run-on-lagoon.md">Step-by-Step Guide</a> which show you how this works.</p>
+
+<h2 id="2-push">2. Push</h2>
+
+<p>With Lagoon, you create a new deployment by pushing into a branch that is configured to be deployed.</p>
+
+<p>If you don’t have any new code to push, don’t worry, you can run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--allow-empty</span> <span class="nt">-m</span> <span class="s2">"go, go! Power Rangers!"</span>
+git push
+</code></pre></div></div>
+
+<p>This will trigger a push, and the Git hosting will inform Lagoon about this push via the configured webhook.</p>
+
+<p>If all is correct, you will see a notification in your configured chat system (this is configured by your friendly Lagoon administrator):</p>
+
+<p><img src="../.gitbook/assets/first_deployment_slack_start%20%282%29%20%282%29.jpg" alt="Slack notification of a deployment starting." /></p>
+
+<p>This tells you that Lagoon has just started to deploy your code. Depending on the size of the codebase and amount of containers, this will take a couple of seconds. Just relax. If you’d like to know what’s happening now, check out the <a href="../using-lagoon-the-basics/build-and-deploy-process.md">Build and Deploy Process of Lagoon</a>.</p>
+
+<p>You can also check your Lagoon UI to see the progress of any deployment (your Lagoon administrator has the info).</p>
+
+<h2 id="3-a-fail">3. A fail</h2>
+
+<p>Depending on the post-rollout tasks defined in <code class="language-plaintext highlighter-rouge">.lagoon.yml</code> , you might have run some tasks like <code class="language-plaintext highlighter-rouge">drush updb</code> or <code class="language-plaintext highlighter-rouge">drush cr</code>. These Drush tasks depend on a database existing within the environment, which obviously does not exist yet. Let’s fix that! Keep reading.</p>
+
+<h2 id="4-synchronize-local-database-to-the-remote-lagoon-environment">4. Synchronize local database to the remote Lagoon environment</h2>
+
+<p>With full Drush site alias support in Lagoon, you can synchronize a local database with the remote Lagoon environment.</p>
+
+<p class="note warning">You may have to tell pygmy about your public keys before the next step.</p>
+
+<p>If you get an error like <code class="language-plaintext highlighter-rouge">Permission denied (publickey)</code>, check out the documentation here: <a href="https://docs.lagoon.sh/pygmy/ssh-agent">pygmy - adding ssh keys</a></p>
+
+<p>First let’s make sure that you can see the Drush site aliases:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush sa
+</code></pre></div></div>
+
+<p>This should return your just deployed environment (let’s assume you just pushed into <code class="language-plaintext highlighter-rouge">develop</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>drupal-example]cli-drupal:/app<span class="nv">$ </span>drush sa
+@develop
+@self
+default
+</code></pre></div></div>
+
+<p>With this we can now synchronize the local database (which is represented in Drush via the site alias <code class="language-plaintext highlighter-rouge">@self</code>) with the remote one (<code class="language-plaintext highlighter-rouge">@develop</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush sql-sync @self @develop
+</code></pre></div></div>
+
+<p>You should see something like:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">[drupal-example]cli-drupal:/app$ drush sql-sync @self @develop
+You will destroy data in ssh.lagoon.amazeeio.cloud/drupal and replace with data from drupal.
+Do you really want to continue? (y/n): y
+Starting to dump database on Source.                                                                              [ok]
+Database dump saved to /home/drush-backups/drupal/20180227075813/drupal_20180227_075815.sql.gz               [success]
+Starting to discover temporary files directory on Destination.                                                    [ok]
+You will delete files in drupal-example-develop@ssh.lagoon.amazeeio.cloud:/tmp/drupal_20180227_075815.sql.gz and replace with data from /home/drush-backups/drupal/20180227075813/drupal_20180227_075815.sql.gz
+Do you really want to continue? (y/n): y
+Copying dump file from Source to Destination.                                                                     [ok]
+Starting to import dump file onto Destination database.
+</span></code></pre></div></div>
+
+<p>Now let’s try another deployment, again an empty push:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--allow-empty</span> <span class="nt">-m</span> <span class="s2">"go, go! Power Rangers!"</span>
+git push
+</code></pre></div></div>
+
+<p>This time all should be green:</p>
+
+<p><img src="../.gitbook/assets/first_deployment_slack_success%20%282%29%20%282%29%20%282%29.jpg" alt="Deployment Success!" /></p>
+
+<p>Click on the links in the notification, and you should see your Drupal site loaded in all its beauty! It will probably not have images yet, which we will handle in <a href="first-deployment-of-drupal.md#6-synchronize-local-files-to-the-remote-lagoon-environment">Step 6</a>.</p>
+
+<p>If it is still failing, check the logs link for more information.</p>
+
+<h2 id="5-synchronize-local-files-to-the-remote-lagoon-environment">5. Synchronize local files to the remote Lagoon environment</h2>
+
+<p>You probably guessed it: we can do it with Drush:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drush rsync @self:%files @develop:%files
+</code></pre></div></div>
+
+<p>It should show you something like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[drupal-example]cli-drupal:/app$ drush rsync @self:%files @develop:%files
+You will delete files in drupal-example-develop@ssh.lagoon.amazeeio.cloud:/app/web/sites/default/files and replace with data from /app/web/sites/default/files/
+Do you really want to continue? (y/n): y
+</code></pre></div></div>
+
+<p>In some cases, though, it might not look correct, like here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[drupal-example]cli-drupal:/app$ drush rsync @self:%files @develop:%files
+You will delete files in drupal-example-develop@ssh.lagoon.amazeeio.cloud:'/app/web/%files' and replace with data from '/app/web/%files'/
+Do you really want to continue? (y/n):
+</code></pre></div></div>
+
+<p>The reason for that is that the Drupal cannot resolve the path of the files directory. This most probably has to do that the Drupal is not fully configured or has a missing database. For a workaround you can use <code class="language-plaintext highlighter-rouge">drush rsync @self:sites/default/files @develop:sites/default/files</code>, but we suggest that you actually check your local and remote Drupal (you can test with <code class="language-plaintext highlighter-rouge">drush status</code> to see if the files directory is correctly configured).</p>
+
+<h2 id="6-its-done">6. It’s done</h2>
+
+<p>As soon as Lagoon is done building and deploying it will send a second notification to the chat system, like so:</p>
+
+<p><img src="../.gitbook/assets/first_deployment_slack_2nd_success.jpg" alt="Slack notification of complete deployment." /></p>
+
+<p>This tells you:</p>
+
+<ul>
+  <li>Which project has been deployed.</li>
+  <li>Which branch and Git SHA has been deployed.</li>
+  <li>A link to the full logs of the build and deployment.</li>
+  <li>Links to all routes (URLs) where the environment can be reached.</li>
+</ul>
+
+<p>That’s it! We hope that wasn’t too hard - making devOps accessible is what we are striving for.</p>
+
+<h2 id="but-wait-how-about-other-branches-or-the-production-environment">But wait, how about other branches or the production environment?</h2>
+
+<p>That’s the beauty of Lagoon: it’s exactly the same: Push the branch name you defined to be your production branch and that one will be deployed.</p>
+
+<h2 id="failure-dont-worry">Failure? Don’t worry.</h2>
+
+<p>Did the deployment fail? Oh no! But we’re here to help:</p>
+
+<ol>
+  <li>Click on the <code class="language-plaintext highlighter-rouge">logs</code> link in the error notification. It will tell you where in the deployment process the failure happened.</li>
+  <li>If you can’t figure it out, ask your Lagoon administrator, they are here to help!</li>
+</ol>
+:ET

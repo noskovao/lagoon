@@ -1,0 +1,55 @@
+I"ù<h1 id="api-debugging">API Debugging</h1>
+
+<p>1 . Ensure the <code class="language-plaintext highlighter-rouge">dev</code> script at <code class="language-plaintext highlighter-rouge">services/api/package.json</code> includes the following:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">node</span> <span class="o">--</span><span class="nx">inspect</span><span class="o">=</span><span class="mf">0.0</span><span class="p">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">9229</span>
+</code></pre></div></div>
+
+<p>2 . Update <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> to map the <code class="language-plaintext highlighter-rouge">dist</code> folder and expose the <code class="language-plaintext highlighter-rouge">9229</code> port:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">api</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">${IMAGE_REPO:-lagoon}/api</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">yarn run dev</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./services/api/src:/app/services/api/src</span>
+      <span class="pi">-</span> <span class="s">./services/api/dist:/app/services/api/dist</span>
+  <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">api-db</span>
+      <span class="pi">-</span> <span class="s">local-api-data-watcher-pusher</span>
+      <span class="pi">-</span> <span class="s">keycloak</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">3000:3000'</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">9229:9229'</span>
+</code></pre></div></div>
+
+<p>3 . Add the following to <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// Use IntelliSense to learn about possible attributes.</span>
+  <span class="c1">// Hover to view descriptions of existing attributes.</span>
+  <span class="c1">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387.</span>
+  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.2.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">configurations</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Docker: Attach to Node</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">attach</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">port</span><span class="dl">"</span><span class="p">:</span> <span class="mi">9229</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">outFiles</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">${workspaceRoot}/app/services/api/dist/**/*.js</span><span class="dl">"</span><span class="p">],</span>
+      <span class="dl">"</span><span class="s2">localRoot</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">${workspaceFolder}/services/api</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">remoteRoot</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/app/services/api</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">sourceMaps</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">protocol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">inspector</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>4 . Rebuild/restart the containers:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm </span>build/api <span class="o">&amp;&amp;</span> make build/api <span class="o">&amp;&amp;</span> docker-compose restart api
+</code></pre></div></div>
+
+<p>5 . Restart VScode.</p>
+:ET
