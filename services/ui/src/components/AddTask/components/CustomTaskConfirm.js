@@ -3,6 +3,7 @@ import Modal from 'components/Modal';
 import Button from 'components/Button';
 import { bp, color } from 'lib/variables';
 
+import ReactMarkdown from 'react-markdown';
 
 /**
  * Confirm custom task
@@ -17,22 +18,21 @@ import { bp, color } from 'lib/variables';
   }) => {
     return (
       <React.Fragment>
-        <div className="margins"><Button disabled={disabled} action={openModal}>
-          Confirm Task
-        </Button></div>
+        <div className="margins">
+          <Button disabled={disabled} action={openModal}>Confirm Task</Button>
+        </div>
         <Modal
           isOpen={open}
           onRequestClose={closeModal}
           contentLabel={`Confirm`}
         >
           <React.Fragment>
-              <h3>Run Task</h3>
-            <p>
-                {taskText}
-            </p>
-
+            <h3>Run Task</h3>
+            <ReactMarkdown>
+              {taskText}
+            </ReactMarkdown>
             <div className="form-input">
-              <a href="#" className="hover-state margins" onClick={closeModal}>cancel</a>
+              <a href="#" className="hover-state margins" onClick={closeModal}>Cancel</a>
               <Button action={onProceed}>Confirm</Button>
             </div>
           </React.Fragment>
