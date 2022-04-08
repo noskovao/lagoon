@@ -1183,8 +1183,9 @@ export const createMiscTask = async function(taskData: any) {
         case 'kubernetes:task:advanced':
           miscTaskData.advancedTask = taskData.data.advancedTask
           break;
+        case 'kubernetes:task:cancel':
         case 'kubernetes:build:cancel':
-          // build cancellation is just a standard unmodified message
+          // build/task cancellation is just a standard unmodified message
           miscTaskData.misc = taskData.data.build
           break;
         default:

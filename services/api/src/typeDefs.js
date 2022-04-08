@@ -70,6 +70,7 @@ const typeDefs = gql`
     ACTIVE
     SUCCEEDED
     FAILED
+    CANCELLED
   }
 
   enum RestoreStatusType {
@@ -1410,6 +1411,10 @@ const typeDefs = gql`
     patch: UpdateTaskPatchInput!
   }
 
+  input CancelTaskInput {
+    task: TaskInput!
+  }
+
   input AddOpenshiftInput {
     id: Int
     name: String!
@@ -1984,6 +1989,7 @@ const typeDefs = gql`
     taskDrushUserLogin(environment: Int!): Task
     deleteTask(input: DeleteTaskInput!): String
     updateTask(input: UpdateTaskInput): Task
+    cancelTask(input: CancelTaskInput!): String
     setEnvironmentServices(input: SetEnvironmentServicesInput!): [EnvironmentService]
     uploadFilesForTask(input: UploadFilesForTaskInput!): Task
     deleteFilesForTask(input: DeleteFilesForTaskInput!): String

@@ -4,6 +4,10 @@ import {
   pubSub,
   createEnvironmentFilteredSubscriber
 } from '../../clients/pubSub';
+import { sendToLagoonLogs } from '@lagoon/commons/dist/logs';
+import {
+  createMiscTask
+} from '@lagoon/commons/dist/tasks';
 import { knex, query, isPatchEmpty } from '../../util/db';
 import { Sql } from './sql';
 import { EVENTS } from './events';
@@ -228,7 +232,7 @@ export const addTask: ResolverFn = async (
     }
   });
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     id,
     name,
     status,
@@ -355,6 +359,68 @@ export const updateTask: ResolverFn = async (
   return taskData;
 };
 
+export const cancelTask: ResolverFn = async (
+  root,
+  {
+    input: {
+      task: taskInput,
+    }
+  },
+  { sqlClientPool, hasPermission, userActivityLogger }
+) => {
+
+  const task = await Helpers(sqlClientPool, hasPermission).getTaskByTaskInput(taskInput);
+  const environment = await environmentHelpers(sqlClientPool).getEnvironmentById(task.environment);
+  const project = await projectHelpers(sqlClientPool).getProjectById(environment.project);
+
+  if (!task) {
+    return null;
+  }
+
+
+
+
+  //@TODO: create a task cancel perm
+  await hasPermission('task', 'view', {
+    project: project.id
+  });
+
+
+  const data = {
+    build: task,
+    environment,
+    project
+  };
+
+  userActivityLogger(
+    `User cancelled task for '${task.environment}'`,
+    {
+      project: '',
+      event: 'api:cancelDeployment',
+      payload: {
+        taskInput,
+        data: data.build
+      }
+    }
+  );
+
+  try {
+    await createMiscTask({ key: 'task:cancel', data });
+    return 'success';
+  } catch (error) {
+    sendToLagoonLogs(
+      'error',
+      '',
+      '',
+      'api:cancelTask',
+      { taskId: task.id },
+      `Task not cancelled, reason: ${error}`
+    );
+    return `Error: ${error.message}`;
+  }
+};
+
+
 export const taskDrushArchiveDump: ResolverFn = async (
   root,
   { environment: environmentId },
@@ -391,7 +457,7 @@ TOKEN="$(ssh -p $TASK_SSH_PORT -t lagoon@$TASK_SSH_HOST token)" && curl -sS "$TA
     }
   );
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: 'Drush archive-dump',
     environment: environmentId,
     service: 'cli',
@@ -439,7 +505,7 @@ TOKEN="$(ssh -p $TASK_SSH_PORT -t lagoon@$TASK_SSH_HOST token)" && curl -sS "$TA
     }
   );
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: 'Drush sql-dump',
     environment: environmentId,
     service: 'cli',
@@ -489,7 +555,7 @@ export const taskDrushCacheClear: ResolverFn = async (
     }
   );
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: 'Drush cache-clear',
     environment: environmentId,
     service: 'cli',
@@ -528,7 +594,7 @@ export const taskDrushCron: ResolverFn = async (
     }
   );
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: 'Drush cron',
     environment: environmentId,
     service: 'cli',
@@ -599,7 +665,7 @@ export const taskDrushSqlSync: ResolverFn = async (
   if [[ ! "" = "$(drush | grep 'lagoon:aliases')" ]]; then LAGOON_ALIAS_PREFIX="lagoon.\${LAGOON_PROJECT}-"; fi && \
   drush -y sql-sync @\${LAGOON_ALIAS_PREFIX}${sourceEnvironment.name} @self`;
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: `Sync DB ${sourceEnvironment.name} -> ${destinationEnvironment.name}`,
     environment: destinationEnvironmentId,
     service: 'cli',
@@ -670,7 +736,7 @@ export const taskDrushRsyncFiles: ResolverFn = async (
   if [[ ! "" = "$(drush | grep 'lagoon:aliases')" ]]; then LAGOON_ALIAS_PREFIX="lagoon.\${LAGOON_PROJECT}-"; fi && \
   drush -y rsync @\${LAGOON_ALIAS_PREFIX}${sourceEnvironment.name}:%files @self:%files -- --omit-dir-times --no-perms --no-group --no-owner --chmod=ugo=rwX`;
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: `Sync files ${sourceEnvironment.name} -> ${destinationEnvironment.name}`,
     environment: destinationEnvironmentId,
     service: 'cli',
@@ -709,7 +775,7 @@ export const taskDrushUserLogin: ResolverFn = async (
     }
   );
 
-  const taskData = await Helpers(sqlClientPool).addTask({
+  const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
     name: 'Drush uli',
     environment: environmentId,
     service: 'cli',
@@ -722,5 +788,6 @@ export const taskDrushUserLogin: ResolverFn = async (
 
 export const taskSubscriber = createEnvironmentFilteredSubscriber([
   EVENTS.TASK.ADDED,
-  EVENTS.TASK.UPDATED
+  EVENTS.TASK.UPDATED,
+  EVENTS.TASK.CANCELLED
 ]);

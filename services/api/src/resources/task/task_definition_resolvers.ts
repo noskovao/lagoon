@@ -527,7 +527,7 @@ export const invokeRegisteredTask = async (
 
         taskCommand += `${task.command}`;
 
-        const taskData = await Helpers(sqlClientPool).addTask({
+        const taskData = await Helpers(sqlClientPool, hasPermission).addTask({
           name: task.name,
           environment: environment,
           service: task.service,
@@ -549,7 +549,7 @@ export const invokeRegisteredTask = async (
         }
 
 
-        const advancedTaskData = await Helpers(sqlClientPool).addAdvancedTask({
+        const advancedTaskData = await Helpers(sqlClientPool, hasPermission).addAdvancedTask({
           name: task.name,
           created: undefined,
           started: undefined,

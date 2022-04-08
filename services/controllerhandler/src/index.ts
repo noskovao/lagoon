@@ -54,6 +54,9 @@ const updateLagoonTask = async (meta) => {
       case 'complete':
         jobStatus = 'succeeded'
         break;
+      case 'cancelled':
+        jobStatus = 'cancelled'
+        break;
       default:
         jobStatus = meta.jobStatus
         break;

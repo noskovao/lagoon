@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import LogViewer from 'components/LogViewer';
+import CancelTask from 'components/CancelTask';
 import { bp } from 'lib/variables';
 
 /**
@@ -50,8 +51,31 @@ const Task = ({ task }) => (
           </div>
         </div>}
     </div>
+    <div className="button-row">
+      {['active', 'new', 'pending', 'running'].includes(task.status) && (
+        <CancelTask task={task} />
+      )}
+    </div>
     <LogViewer logs={task.logs} />
     <style jsx>{`
+      .button-row {
+        padding: 0px calc(100vw / 16) 20px;
+        width: 100%;
+        @media ${bp.xs_smallUp} {
+          display: flex;
+          flex-wrap: wrap;
+          min-width: 100%;
+          padding-left: calc(((100vw / 16) * 1.5) + 28px);
+          position: relative;
+          width: 100%;
+        }
+        @media ${bp.tabletUp} {
+          padding: 0 calc(100vw / 16) 20px calc(((100vw / 16) * 1.5) + 28px);
+        }
+        @media ${bp.extraWideUp} {
+          padding-left: calc(100vw / 16);
+        }
+      }
       .details {
         padding: 104px calc(100vw / 16) 20px;
         width: 100%;

@@ -14,10 +14,14 @@ export default gql`
         factsUi
       }
       tasks(id: $taskId) {
+        id
         name
         status
         created
         service
+        environment {
+          id
+        }
         logs
         files {
           id
