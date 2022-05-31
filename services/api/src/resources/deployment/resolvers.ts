@@ -22,7 +22,8 @@ import { addTask } from '@lagoon/commons/dist/api';
 import { Sql as environmentSql } from '../environment/sql';
 import S3 from 'aws-sdk/clients/s3';
 import sha1 from 'sha1';
-import { generateBuildId, jsonMerge } from '@lagoon/commons/dist/util';
+import { generateBuildId } from '@lagoon/commons/dist/util/lagoon';
+import { jsonMerge } from '@lagoon/commons/dist/util/func';
 import { logger } from '../../loggers/logger';
 import uuid4 from 'uuid4';
 
