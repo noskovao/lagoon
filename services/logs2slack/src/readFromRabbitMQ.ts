@@ -1,7 +1,7 @@
 import { IncomingWebhook } from '@slack/client';
 import { ChannelWrapper } from 'amqp-connection-manager';
 import { ConsumeMessage } from 'amqplib';
-import { logger } from '@lagoon/commons/dist/local-logging';
+import { logger } from '@lagoon/commons/dist/logs/local-logger';
 import { getSlackinfoForProject } from '@lagoon/commons/dist/api';
 import { notificationIntToContentType, notificationContentTypeToInt, parseProblemNotification } from '@lagoon/commons/dist/notificationCommons';
 

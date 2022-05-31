@@ -1,6 +1,6 @@
 import { ChannelWrapper } from 'amqp-connection-manager';
 import { ConsumeMessage } from 'amqplib';
-import { logger } from '@lagoon/commons/dist/local-logging';
+import { logger } from '@lagoon/commons/dist/logs/local-logger';
 import {
   getWebhookNotificationInfoForProject,
   getEnvironmentById
