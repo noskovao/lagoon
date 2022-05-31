@@ -116,7 +116,7 @@ export const getDeploymentsByBulkId: ResolverFn = async (
     await hasPermission('project', 'viewAll');
   } catch (err) {
     if (!keycloakGrant) {
-      logger.warn('No grant available for getAllProjects');
+      logger.debug('No grant available for getDeploymentsByBulkId');
       return [];
     }
 
@@ -1117,7 +1117,7 @@ export const bulkDeployEnvironmentLatest: ResolverFn = async (
     await hasPermission('project', 'viewAll');
   } catch (err) {
     if (!keycloakGrant) {
-      logger.warn('No grant available for getAllProjects');
+      logger.debug('No grant available for bulkDeployEnvironmentLatest');
       return [];
     }
 
