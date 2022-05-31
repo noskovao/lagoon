@@ -21584,11 +21584,6 @@ window-size@0.1.0:
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
   integrity sha1-VDjNLqk7IC76Ohn+iIeu58lPnJ0=
 
-winston-logstash@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/winston-logstash/-/winston-logstash-0.4.0.tgz#fbb618235a056fbea7acf2bec78018e9a5238138"
-  integrity sha512-P31aKNVlgPWBWH5Q1mpa/S871bzofFF708FwjncU4vhxXfSJCVFC48yEk/iBgXCK4OlZkXtBxzRPEE+3dAdbEA==
-
 winston-transport@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-4.4.0.tgz#17af518daa690d5b2ecccaa7acf7b20ca7925e59"
