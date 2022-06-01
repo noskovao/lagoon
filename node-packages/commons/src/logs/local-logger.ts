@@ -32,7 +32,7 @@ export const logger = createLogger({
   ),
   transports: [
     new transports.Console({
-      level: getConfigFromEnv('LOGGING_LEVEL', 'trace'),
+      level: getConfigFromEnv('LOGGING_LEVEL', 'info'),
       colorize: true,
       timestamp: true,
       handleExceptions: true
