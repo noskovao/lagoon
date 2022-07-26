@@ -252,7 +252,9 @@ main () {
 	fi
 
 	# CLEANDATE: environments older will be remove if related to a closed PR
-	CLEAN_DATE=$(gnudate "-$MONTHS months")
+	if [ -z "$CLEAN_DATE" ]; then 
+		CLEAN_DATE=$(gnudate "-$MONTHS months")
+	fi
 	echo $CLEAN_DATE
 
 	# Script body
